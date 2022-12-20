@@ -7,16 +7,11 @@ request(mlbURL, function (err, res, html){
         var $ = cheerio.load(html)
         var results = []
         $('p.game').each(function(i,element) {
-            if(i>10){
+            if(i > 0){
                 return
             }
-            var title = $(element).parent().text()
-            title = title.split('Boxscore')
-            title = title.join('')
-            title = title.split('\n')
-            title = title.filter((element) => element.length > 1)
-           
-            console.log(title)
+            const day = $(element).parent().text()
+            console.log(day)
         })
     }
 })
