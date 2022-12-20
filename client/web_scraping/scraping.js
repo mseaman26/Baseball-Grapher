@@ -10,7 +10,7 @@ request(mlbURL, function (err, res, html){
             if(i > 0){
                 return
             }
-            const day = $(element).parent().text()
+            const day = $(element).parent().text().replace(/\s\s+/g, '').split('Boxscore')
             console.log(day)
         })
     }
