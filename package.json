@@ -1,0 +1,31 @@
+{
+  "name": "baseball-grapher",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mseaman26/Baseball-Grapher.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mseaman26/Baseball-Grapher/issues"
+  },
+   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.2.1",
+    "bootstrap": "^5.2.3",
+    "dotenv": "^16.0.3",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
+  },
+  "homepage": "https://github.com/mseaman26/Baseball-Grapher#readme"
+}
