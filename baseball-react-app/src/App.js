@@ -20,16 +20,19 @@ context.lineWidth = 10;
 context.stroke();
 
 document.addEventListener('mousemove', (e) => {
-    console.log(e.clientX, e.clientY)
-    if(e.clientX > startX && e.clientX < endX && e.clientY > startY && e.clientY < endY){
-        console.log(true)
-        context.beginPath();
-        context.strokeStyle = "red";
-        context.moveTo(50, 50);
-        context.lineTo(100, 100);
-        context.lineWidth = 10;
-        context.stroke();
-    }
+  var rect = canvas.getBoundingClientRect();
+  let x = e.clientX - rect.left
+  let y = e.clientY - rect.top
+  console.log(x, y)
+  if(x > startX && x < endX && y > startY && y < endY){
+      console.log(true)
+      context.beginPath();
+      context.strokeStyle = "red";
+      context.moveTo(50, 50);
+      context.lineTo(100, 100);
+      context.lineWidth = 10;
+      context.stroke();
+  }
 });
 
 // var canvas = document.getElementById("myCanvas"),
