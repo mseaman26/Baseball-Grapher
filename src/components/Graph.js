@@ -29,9 +29,7 @@ const Graph = () => {
       var rect = canvas.getBoundingClientRect();
       let x = e.clientX - rect.left
       let y = e.clientY - rect.top
-      console.log(x, y)
       if(x > startX && x < endX && y > startY && y < endY){
-          console.log(true)
           context.beginPath();
           context.strokeStyle = "red";
           context.moveTo(50, 50);
