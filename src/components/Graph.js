@@ -1,8 +1,13 @@
-import React from "react";
+import React, {useRef, useEffect} from "react";
 
 const Graph = () => {
-    var canvas = document.getElementById('myCanvas');
-    var context = canvas.getContext('2d');
+
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    console.log(canvas)
     canvas.width = document.body.clientWidth;
     canvas.height = document.body.clientHeight;
     context.beginPath();
@@ -35,6 +40,14 @@ const Graph = () => {
           context.stroke();
       }
     });
+  })
+
+    
+    return(
+      <canvas ref={canvasRef}>
+
+      </canvas>
+    )
 }
 
 export default Graph
