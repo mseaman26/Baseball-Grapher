@@ -10,7 +10,7 @@ const typeDefs = gql`
     }
 
     type Query{
-       games: [Game] 
+       games (team: String): [Game] 
     }
 `
 
