@@ -1,3 +1,3 @@
 const Game = require('./Game')
 
-modeule.exports = { Game }
+module.exports = { Game }

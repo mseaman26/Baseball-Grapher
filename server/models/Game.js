@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+const { Schema, model } = require('mongoose');
 
-const gameSchema = newSchemaa ({
+const gameSchema = new Schema ({
     awayTeam: {
         type: String
     },
@@ -17,3 +17,6 @@ const gameSchema = newSchemaa ({
         type: String
     }
 })
+
+const Game = model('Game', gameSchema)
+module.exports = Game
