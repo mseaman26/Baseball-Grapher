@@ -17,7 +17,7 @@ const typeDefs = gql`
 
     type Mutation{
         addSeason(teamName: String!, year: Int!): [Game]
-        addResults(teamName: String!, year: Int!)
+        addResults(teamName: String!, year: Int!): [String]
     }
 `
 
