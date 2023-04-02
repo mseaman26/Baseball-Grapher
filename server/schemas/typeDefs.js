@@ -7,6 +7,7 @@ const typeDefs = gql`
         homeTeam: String
         homeScore: Int
         date: String
+        dayNumber: Int
     }
 
     type Query{

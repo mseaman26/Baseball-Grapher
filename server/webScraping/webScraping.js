@@ -30,6 +30,7 @@ const scrapeGames = async (teamName) => {
         const html = await response.text();
         const $ = cheerio.load(html);
         const games = [];
+        const results = []
 
         $('.game').each(function (i, element) {
             let game = $(element).text().replace(/\s\s+/g, '');
@@ -55,19 +56,56 @@ const scrapeGames = async (teamName) => {
                 teamScore = awayScore
                 opponentScore = homeScore
             }
-
+            
             if (game.includes(teamName)) {
-                console.log(dayNumber)
+                //check for off days
+                if(games.length > 0 && dayNumber - games[games.length - 1].dayNumber > 1){
+                    for(let i = 1; i < dayNumber - games[games.length - 1].dayNumber; i++){
+                        results.push('off')
+                    }
+                }
+                //check for double headers
+                
+                if(games.length > 0 && games[games.length - 1].date === date){
+                    if(results[results.length - 1] === 'win'){
+                        if(teamScore > opponentScore){
+                            results.pop()
+                            results.push('winwin')
+                        }else{
+                            results.pop()
+                            results.push('winloss')
+                        }
+                    }else{
+                        if(teamScore > opponentScore){
+                            results.pop()
+                            results.push('losswin')
+                        }else{
+                            results.pop()
+                            results.push('lossloss')
+                        }
+                    }
+                    //handle regular wins and losses
+                }else{
+                    if(teamScore > opponentScore){
+                        results.push('win')
+                    }
+                    else{
+                        results.push('loss')
+                    }
+                }
+                
                 games.push({
                     date: date,
                     awayTeam: awayTeam,
                     awayScore: awayScore,
                     homeTeam: homeTeam,
-                    homeScore: homeScore
+                    homeScore: homeScore,
+                    dayNumber: dayNumber
                 });
+                
             }
         });
-
+        console.log(results)
         return games;
     } catch (error) {
         console.log(error);
