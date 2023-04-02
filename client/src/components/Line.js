@@ -1,33 +1,65 @@
 import React, { useEffect, useRef } from 'react';
-import paper from 'paper';
+import { select } from 'd3-selection';
+import { zoom, ZoomTransform } from 'd3-zoom';
 
-function Line() {
-  const canvasRef = useRef(null);
+const Line = () => {
+  const svgRef = useRef(null);
 
   useEffect(() => {
-    // Create a Paper.js canvas and attach it to the canvas element
-    paper.setup(canvasRef.current);
+    const svg = select(svgRef.current);
+    const width = svg.attr('width');
+    const height = svg.attr('height');
 
-    // Create a new path object and set its stroke color to red
-    const path = new paper.Path({
-      strokeColor: 'red',
-      strokeWidth: 5,
-    });
+    // Define the zoom behavior
+    const zoomBehavior = zoom()
+      .scaleExtent([1, 10]) // Limit zoom to a minimum and maximum scale
+      .on('zoom', (event) => {
+        // Update the line and box position and size based on the zoom transform
+        g.attr('transform', event.transform);
+      });
 
-    // Set the path's starting point to (0, 0) and its ending point to (200, 200)
-    path.moveTo(0, 0);
-    path.lineTo(200, 200);
+    // Create the box
+    const box = svg.append('rect')
+      .attr('x', 50)
+      .attr('y', 50)
+      .attr('width', 200)
+      .attr('height', 100)
+      .attr('stroke', 'black')
+      .attr('fill', 'none');
 
-    // Tell Paper.js to draw the path
-    paper.view.draw();
+    // Create the line
+    const line = svg.append('line')
+      .attr('x1', 60)
+      .attr('y1', 80)
+      .attr('x2', 240)
+      .attr('y2', 80)
+      .attr('stroke', 'red')
+      .attr('stroke-width', 2);
 
-    // Clean up by removing the Paper.js canvas
-    return () => {
-      paper.remove();
-    };
+    // Create the circle
+    const circle = svg.append('circle')
+      .attr('cx', 150)
+      .attr('cy', 80)
+      .attr('r', 6)
+      .attr('fill', 'black')
+      .style('cursor', 'pointer')
+      .on('click', () => {
+        window.open('https://www.google.com', '_blank');
+      });
+
+    // Create the group element to hold the line, box, and circle
+    const g = svg.append('g');
+
+    // Add the zoom behavior to the group element
+    g.call(zoomBehavior);
+
+    // Set the initial zoom transform
+    svg.call(zoomBehavior.transform, new ZoomTransform(svg.node()));
   }, []);
 
-  return <canvas ref={canvasRef} />;
-}
+  return (
+    <svg ref={svgRef} width={300} height={200} />
+  );
+};
 
 export default Line;
