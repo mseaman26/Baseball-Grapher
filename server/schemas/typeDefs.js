@@ -10,11 +10,13 @@ const typeDefs = gql`
     }
 
     type Query{
-       games (teamName: String!): [Game] 
+       games (teamName: String!, year: Int!): [Game] 
+       results(teamName: String!, year: Int!): [String]
     }
 
     type Mutation{
         addSeason(teamName: String!, year: Int!): [Game]
+        addResults(teamName: String!, year: Int!)
     }
 `
 
