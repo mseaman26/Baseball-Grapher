@@ -4,20 +4,20 @@ import Chart from 'chart.js/auto';
 const LineGraph = () => {
   const chartRef = useRef(null);
   const myLineChartRef = useRef(null);
-  let myLineChart;
+
+  const labels = [0,1,1.5,2,2.5,3]
 
   useEffect(() => {
     const ctx = chartRef.current.getContext('2d');
     
-
     myLineChartRef.current = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: labels,
         datasets: [
           {
             label: 'My First Dataset',
-            data: [65, 59, 80, 81, -56, 55, 40],
+            data: [65, 80, 81, -56, 55, 40],
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0,
@@ -26,6 +26,30 @@ const LineGraph = () => {
       },
       options: {
         scales: {
+          x:{
+            type: 'linear',
+            ticks: {
+              stepSize: 1,
+              callback: (value, index, values) => {
+                if (Number.isInteger(value)) {
+                  return value;
+                }
+              }
+            },
+            grid: {
+              display: true,
+              drawBorder: false,
+              color: (context) => {
+                return context.tick.value === 0 ? 'black' : 'rgba(0, 0, 0, 0.1)';
+              },
+              lineWidth: (context) => {
+                return context.tick.value === 0 ? 2 : 1;
+              },
+              borderDash: (context) => {
+                return context.tick.value === 0 ? [2] : [];
+              },
+            },
+          },
           y: {
             beginAtZero: true,
             grid: {

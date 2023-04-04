@@ -31,6 +31,7 @@ const scrapeGames = async (teamName) => {
         const $ = cheerio.load(html);
         const games = [];
         const results = []
+        const standings = []
 
         $('.game').each(function (i, element) {
             let game = $(element).text().replace(/\s\s+/g, '');
@@ -93,7 +94,25 @@ const scrapeGames = async (teamName) => {
                         results.push('loss')
                     }
                 }
-                
+                //convert wins and losses into standings
+                for(let i = 0; i < results.length; i++){
+                    let standing = 0
+                    switch (results[i]){
+                        case 'win':
+                            standing +=1
+                            standings.push(standing)
+                            break
+                        case 'loss':
+                            standing -= 1
+                            standings.push(standing)
+                            break
+                        case 'winwin':
+                            standing += 2
+                            standings.push(standing)
+                            break
+                        case 'winloss'
+                    }
+                }
                 games.push({
                     date: date,
                     awayTeam: awayTeam,
