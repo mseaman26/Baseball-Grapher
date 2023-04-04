@@ -4,8 +4,6 @@ import GraphCanvas from './components/GraphCanvas';
 
 function App() {
   return <div>
-    <h1>hello</h1>
-    {/* <GraphCanvas></GraphCanvas> */}
     <Graph></Graph>
   </div>
 }

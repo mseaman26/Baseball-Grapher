@@ -1,5 +1,6 @@
 import React, {useRef, useEffect} from "react";
-import Line from "./Line";
+import LineGraph from "./LineGraph";
+import Line from "./LineGraph";
 
 
 const Graph = () => {
@@ -46,9 +47,9 @@ const Graph = () => {
 
     
     return(
-      <Line>
-        
-      </Line>
+      <LineGraph>
+
+      </LineGraph>
     )
 }
 

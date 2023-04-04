@@ -1,0 +1,17 @@
+#zoomableSVG{
+     /* Set zoom center to the top-left corner of the div */
+  transform-origin: top left;
+  /* Set initial zoom level */
+  transform: scale(1);
+  /* Add transition to make zoom smooth */
+  transition: transform 0.5s ease;
+}
+
+.zoom_in{
+     /* Set zoom level */
+  transform: scale(2);
+}
+.zoom_out{
+     /* Set zoom level */
+  transform: scale(0.5);
+}
