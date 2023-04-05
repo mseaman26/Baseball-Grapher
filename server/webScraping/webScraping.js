@@ -31,7 +31,8 @@ const scrapeGames = async (teamName) => {
         const $ = cheerio.load(html);
         const games = [];
         const results = []
-        const standings = []
+        const standings = [0]
+        const labels = [0]
 
         $('.game').each(function (i, element) {
             let game = $(element).text().replace(/\s\s+/g, '');
@@ -59,6 +60,7 @@ const scrapeGames = async (teamName) => {
             }
             
             if (game.includes(teamName)) {
+
                 //check for off days
                 if(games.length > 0 && dayNumber - games[games.length - 1].dayNumber > 1){
                     for(let i = 1; i < dayNumber - games[games.length - 1].dayNumber; i++){
@@ -95,24 +97,8 @@ const scrapeGames = async (teamName) => {
                     }
                 }
                 //convert wins and losses into standings
-                for(let i = 0; i < results.length; i++){
-                    let standing = 0
-                    switch (results[i]){
-                        case 'win':
-                            standing +=1
-                            standings.push(standing)
-                            break
-                        case 'loss':
-                            standing -= 1
-                            standings.push(standing)
-                            break
-                        case 'winwin':
-                            standing += 2
-                            standings.push(standing)
-                            break
-                        case 'winloss'
-                    }
-                }
+                
+                
                 games.push({
                     date: date,
                     awayTeam: awayTeam,
@@ -124,8 +110,70 @@ const scrapeGames = async (teamName) => {
                 
             }
         });
-        console.log(results)
-        return games;
+        //convert results into standings
+        let standing = 0
+        let day = 0
+                for(let i = 0; i < results.length; i++){
+                    
+                    switch (results[i]){
+                        case 'win':
+                            standing +=1
+                            day += 1
+                            standings.push(standing)
+                            labels.push(day)
+                            break
+                        case 'loss':
+                            standing -= 1
+                            day += 1
+                            standings.push(standing)
+                            labels.push(day)
+                            break
+                        case 'winwin':
+                            standing += 2
+                            day += 1
+                            standings.push(standing)
+                            labels.push(day)
+                            break
+                        case 'winloss':
+                            standing +=1
+                            day += .5
+                            standings.push(standing)
+                            labels.push(day)
+                            standing -= 1
+                            day += .5
+                            standings.push(standing)
+                            labels.push(day)
+                            break
+                        case 'losswin':
+                            standing -= 1
+                            day += .5
+                            standings.push(standing)
+                            labels.push(day)
+                            standing += 1
+                            day += .5
+                            standings.push(standing)
+                            labels.push(day)
+                            break
+                        case 'lossloss':
+                            standing -= 2
+                            day += 1
+                            standings.push(standing)
+                            labels.push(day)
+                            break
+                        case 'off':
+                            day += 1
+                            standings.push(standing)
+                            labels.push(day)
+                            break
+                    }
+                }
+        console.log(labels)
+        return {
+            labels: labels,
+            standings: standings,
+            games: games,
+            results: results
+        };
     } catch (error) {
         console.log(error);
         return null;

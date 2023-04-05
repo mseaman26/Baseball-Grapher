@@ -3,7 +3,7 @@ const {Game} = require ('../models')
 
 const resolvers = {
     Query: {
-        games: async (parent, args) => {
+        season: async (parent, args) => {
             try{
                 const gamesData = await scrapeGames(args.teamName)
                 console.log(gamesData)

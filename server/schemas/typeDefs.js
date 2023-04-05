@@ -9,9 +9,15 @@ const typeDefs = gql`
         date: String
         dayNumber: Int
     }
+    type Season{
+        labels: [Float]
+        standings: [Int]
+        games: [Game]
+        results: [String]
+    }
 
     type Query{
-       games (teamName: String!, year: Int!): [Game] 
+       season (teamName: String!, year: Int!): Season 
        results(teamName: String!, year: Int!): [String]
     }
 

@@ -1,13 +1,22 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
+import { useQuery, useMutation } from '@apollo/client';
+import {GET_SEASON} from '../utils/queries'
 
 const LineGraph = () => {
+
+  
+
   const chartRef = useRef(null);
   const myLineChartRef = useRef(null);
+
+  const seasonData = useQuery(GET_SEASON)
+  console.log(seasonData)
 
   const labels = [0,1,1.5,2,2.5,3]
 
   useEffect(() => {
+    
     const ctx = chartRef.current.getContext('2d');
     
     myLineChartRef.current = new Chart(ctx, {
@@ -19,7 +28,7 @@ const LineGraph = () => {
             label: 'My First Dataset',
             data: [65, 80, 81, -56, 55, 40],
             fill: false,
-            borderColor: 'rgb(75, 192, 192)',
+            borderColor: 'rgb(254, 90, 29)',
             tension: 0,
           },
         ],
