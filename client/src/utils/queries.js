@@ -17,3 +17,9 @@ query Query($teamName: String!, $year: Int!) {
     }
   }
 `
+
+export const TEST_QUERY = gql `
+query Query($testString: String!) {
+    test(testString: $testString)
+  }
+`

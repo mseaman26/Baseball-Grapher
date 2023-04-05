@@ -1,22 +1,30 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 import { useQuery, useMutation } from '@apollo/client';
-import {GET_SEASON} from '../utils/queries'
+import {GET_SEASON, TEST_QUERY} from '../utils/queries'
 
 const LineGraph = () => {
-
-  
 
   const chartRef = useRef(null);
   const myLineChartRef = useRef(null);
 
-  const seasonData = useQuery(GET_SEASON)
+  const { loading, data } = useQuery(GET_SEASON, {
+		variables: { 
+      teamName: 'San Francisco Giants',
+      year: 2022
+    },
+		fetchPolicy: 'cache-and-network' //gets most updated data
+	});
+
+  const seasonData = data?.season || [];
   console.log(seasonData)
 
-  const labels = [0,1,1.5,2,2.5,3]
-
+  const labels = seasonData.labels
+  
   useEffect(() => {
     
+   
+
     const ctx = chartRef.current.getContext('2d');
     
     myLineChartRef.current = new Chart(ctx, {
@@ -25,8 +33,8 @@ const LineGraph = () => {
         labels: labels,
         datasets: [
           {
-            label: 'My First Dataset',
-            data: [65, 80, 81, -56, 55, 40],
+            label: 'San Francisco Giants',
+            data: seasonData.standings,
             fill: false,
             borderColor: 'rgb(254, 90, 29)',
             tension: 0,
@@ -34,16 +42,25 @@ const LineGraph = () => {
         ],
       },
       options: {
+        maintainAspectRatio: false, // Disable the default aspect ratio
+        aspectRatio: 1.333, // Set a fixed aspect ratio of 1:1
         scales: {
           x:{
             type: 'linear',
             ticks: {
               stepSize: 1,
-              callback: (value, index, values) => {
-                if (Number.isInteger(value)) {
-                  return value;
-                }
-              }
+              autoSkip: false,
+              // callback: (value, index, values) => {
+              //   if (index % 10 === 0) {
+              //     return value;
+              //   }
+              //   return ''; // Return empty string for non-visible labels
+              // }
+              // callback: (value, index, values) => {
+              //   if (value % 10 ===0) {
+              //     return value;
+              //   }
+              // }
             },
             grid: {
               display: true,
@@ -60,6 +77,15 @@ const LineGraph = () => {
             },
           },
           y: {
+            ticks: {
+              stepSize: 1,
+              autoSkip: false
+              // callback: (value, index, values) => {
+              //   if (Number.isInteger(value)) {
+              //     return value;
+              //   }
+              // }
+            },
             beginAtZero: true,
             grid: {
               borderWidth: (context) => {
@@ -84,11 +110,12 @@ const LineGraph = () => {
         },
       },
     });
-
+    
     return () => {
       myLineChartRef.current.destroy();
     };
   }, []);
+     
 
   return <canvas ref={chartRef} />;
 };

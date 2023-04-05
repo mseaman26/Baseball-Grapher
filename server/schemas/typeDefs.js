@@ -17,8 +17,9 @@ const typeDefs = gql`
     }
 
     type Query{
-       season (teamName: String!, year: Int!): Season 
+       season(teamName: String!, year: Int!): Season 
        results(teamName: String!, year: Int!): [String]
+       test(testString: String!): String
     }
 
     type Mutation{

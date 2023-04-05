@@ -6,12 +6,19 @@ const resolvers = {
         season: async (parent, args) => {
             try{
                 const gamesData = await scrapeGames(args.teamName)
-                console.log(gamesData)
                 return (gamesData)
             }catch(e){
                 console.log(e)
             }
            
+        },
+        test: async (parent, args) => {
+            try {
+                const newString = args.testString
+                return newString
+            }catch(e){
+                console.log(e)
+            }
         }
     },
     Mutation: {
