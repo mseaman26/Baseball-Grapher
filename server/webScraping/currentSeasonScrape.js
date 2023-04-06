@@ -1,7 +1,7 @@
 const cheerio = require('cheerio')
 const fetch = require('node-fetch')
 
-const mlbURL = 'https://www.baseball-reference.com/leagues/majors/2022-schedule.shtml'
+const mlbURL = 'https://www.baseball-reference.com/leagues/majors/2023-schedule.shtml'
 
 const numerateMonth = (month) => {
     switch (month) {
@@ -24,7 +24,7 @@ const numerateMonth = (month) => {
     }
 }
 
-const scrapeGames = async (teamName) => {
+const scrapeCurrentSeason = async (teamName) => {
     try {
         const response = await fetch(mlbURL);
         const html = await response.text();
@@ -37,6 +37,10 @@ const scrapeGames = async (teamName) => {
         $('.game').each(function (i, element) {
             let game = $(element).text().replace(/\s\s+/g, '');
             let date = $(element).parent().find('h3').text();
+            if(date.includes('Today')){
+                return false
+            }
+            console.log(date)
             let month = date.split(',')[1].split(' ')[1]
             //day number within month
             let day = parseInt(date.split(',')[1].split(' ')[2])
@@ -187,5 +191,5 @@ const scrapeGames = async (teamName) => {
         return null;
     }
 };
-scrapeGames('San Francisco Giants')
-module.exports = { scrapeGames };
+scrapeCurrentSeason('San Francisco Giants')
+module.exports = { scrapeCurrentSeason };

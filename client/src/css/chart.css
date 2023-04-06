@@ -1,0 +1,8 @@
+.canvas_div{
+    width: 100%;
+    box-sizing: border-box;
+}
+.chart_canvas{
+    width: inherit;
+    box-sizing: border-box;
+}

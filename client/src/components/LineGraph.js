@@ -1,30 +1,35 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Chart from 'chart.js/auto';
 import { useQuery, useMutation } from '@apollo/client';
-import {GET_SEASON, TEST_QUERY} from '../utils/queries'
+import {GET_SEASON, GET_CURRENT_SEASON} from '../utils/queries'
+import 'chartjs-plugin-zoom';
 
 const LineGraph = () => {
 
   const chartRef = useRef(null);
   const myLineChartRef = useRef(null);
 
-  const { loading, data } = useQuery(GET_SEASON, {
+  
+
+  const { loading, data } = useQuery(GET_CURRENT_SEASON, {
 		variables: { 
       teamName: 'San Francisco Giants',
-      year: 2022
     },
 		fetchPolicy: 'cache-and-network' //gets most updated data
 	});
 
-  const seasonData = data?.season || [];
+  const seasonData = data?.currentSeason || [];
   console.log(seasonData)
 
   const labels = seasonData.labels
+
+  const graphWidth = window.innerWidth
+  const graphHeight = 0
+  
+
   
   useEffect(() => {
     
-   
-
     const ctx = chartRef.current.getContext('2d');
     
     myLineChartRef.current = new Chart(ctx, {
@@ -37,13 +42,19 @@ const LineGraph = () => {
             data: seasonData.standings,
             fill: false,
             borderColor: 'rgb(254, 90, 29)',
+            borderWidth: 7,
+            pointRadius: 5, // hide the circles by default
+            pointHoverRadius: 15, // set the radius of the circle on hover
+            pointBackgroundColor: 'rgba(254, 90, 29, 0.1)',
+            pointBorderColor: 'rgb(254, 90, 29, 0)', // desired point color,
             tension: 0,
           },
         ],
       },
       options: {
         maintainAspectRatio: false, // Disable the default aspect ratio
-        aspectRatio: 1.333, // Set a fixed aspect ratio of 1:1
+        responsive: false,
+        aspectRatio: 1, // Set a fixed aspect ratio of 1:1
         scales: {
           x:{
             type: 'linear',
@@ -108,16 +119,36 @@ const LineGraph = () => {
             }
           }
         },
+        plugins: {
+    zoom: {
+      zoom: {
+        wheel: {
+          enabled: true, // enable zooming with the mouse wheel
+        },
+        pinch: {
+          enabled: true, // enable zooming with pinch gestures
+        },
+        mode: 'xy', // allow zooming on both the x and y axis
+      },
+      pan: {
+        enabled: true, // enable panning of the chart
+        mode: 'xy', // allow panning on both the x and y axis
+      },
+    },
+  }
       },
     });
     
     return () => {
       myLineChartRef.current.destroy();
     };
-  }, []);
+  }, [seasonData]);
      
-
-  return <canvas ref={chartRef} />;
+  
+  return (
+      <canvas ref={chartRef}/>
+    
+  )
 };
 
 export default LineGraph;

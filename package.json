@@ -9,7 +9,7 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
     "build": "cd client && npm run build",
-    "scrape": "node server/webScraping/webScraping.js"
+    "scrape": "node server/webScraping/currentSeasonScrape.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/mseaman26/Baseball-Grapher/issues"
   },
-  "homepage": "https://github.com/mseaman26/Baseball-Grapher#readme"
+  "homepage": "https://github.com/mseaman26/Baseball-Grapher#readme",
+  "dependencies": {
+    "chartjs-plugin-zoom": "^2.0.1"
+  }
 }

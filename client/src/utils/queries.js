@@ -18,8 +18,20 @@ query Query($teamName: String!, $year: Int!) {
   }
 `
 
-export const TEST_QUERY = gql `
-query Query($testString: String!) {
-    test(testString: $testString)
+export const GET_CURRENT_SEASON = gql`
+query Query($teamName: String!) {
+  currentSeason(teamName: $teamName) {
+    standings
+    labels
+    games {
+      awayTeam
+      awayScore
+      homeTeam
+      homeScore
+      date
+      dayNumber
+    }
+    results
   }
+}
 `

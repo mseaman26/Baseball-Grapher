@@ -1,4 +1,5 @@
 const { scrapeGames } = require("../webScraping/webScraping")
+const { scrapeCurrentSeason} = require('../webScraping/currentSeasonScrape')
 const {Game} = require ('../models')
 
 const resolvers = {
@@ -6,6 +7,15 @@ const resolvers = {
         season: async (parent, args) => {
             try{
                 const gamesData = await scrapeGames(args.teamName)
+                return (gamesData)
+            }catch(e){
+                console.log(e)
+            }
+           
+        },
+        currentSeason: async (parent, args) => {
+            try{
+                const gamesData = await scrapeCurrentSeason(args.teamName)
                 return (gamesData)
             }catch(e){
                 console.log(e)
