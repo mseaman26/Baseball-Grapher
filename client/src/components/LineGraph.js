@@ -8,6 +8,7 @@ const LineGraph = () => {
 
   const chartRef = useRef(null);
   const myLineChartRef = useRef(null);
+  const [labels, setLabels] = useState([]);
 
   const { loading, data } = useQuery(GET_CURRENT_SEASON, {
 		variables: { 
@@ -17,7 +18,6 @@ const LineGraph = () => {
 	});
 
   const seasonData = data?.currentSeason || [];
-  console.log(seasonData)
 
   const {seasonsLoading, data: seasonsData} = useQuery(GET_CURRENT_SEASONS, {
     variables: {
@@ -27,11 +27,21 @@ const LineGraph = () => {
   })
  
   const seasons = seasonsData?.currentSeasons || [];
-  console.log(seasons)
-  const labels = seasonData.labels
+  
+
   
   useEffect(() => {
-    
+    if (seasons[0]) {
+      setLabels(seasons[0].labels);
+    }
+  }, [seasons]);
+
+  useEffect(() => {
+    try{
+      console.log(seasons[0].labels)
+    }catch(e){
+
+    }
     const ctx = chartRef.current.getContext('2d');
     
     myLineChartRef.current = new Chart(ctx, {
@@ -144,7 +154,7 @@ const LineGraph = () => {
     return () => {
       myLineChartRef.current.destroy();
     };
-  }, [seasonData]);
+  }, [labels]);
      
   
   return (
