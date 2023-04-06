@@ -35,3 +35,21 @@ query Query($teamName: String!) {
   }
 }
 `
+export const GET_CURRENT_SEASONS = gql`
+query Query($teamNames: [String!]) {
+  currentSeasons(teamNames: $teamNames) {
+    labels
+    standings
+    games {
+      awayTeam
+      awayScore
+      homeTeam
+      homeScore
+      date
+      dayNumber
+    }
+    results
+    teamName
+  }
+}
+`

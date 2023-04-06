@@ -181,6 +181,7 @@ const scrapeCurrentSeason = async (teamName) => {
                 }
         console.log(labels)
         return {
+            teamName: teamName,
             labels: labels,
             standings: standings,
             games: games,

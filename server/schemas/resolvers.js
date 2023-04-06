@@ -22,6 +22,18 @@ const resolvers = {
             }
            
         },
+        currentSeasons: async (parent, args) => {
+            try{
+                let seasons = []
+                for(let i = 0; i < args.teamNames.length; i++){
+                    const seasonData = await scrapeCurrentSeason(args.teamNames[i])
+                    seasons.push(seasonData)
+                }
+                return seasons
+            }catch(e){
+                console.log(e)
+            }
+        },
         test: async (parent, args) => {
             try {
                 const newString = args.testString

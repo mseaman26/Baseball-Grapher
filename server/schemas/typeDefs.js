@@ -10,6 +10,7 @@ const typeDefs = gql`
         dayNumber: Int
     }
     type Season{
+        teamName: String
         labels: [Float]
         standings: [Int]
         games: [Game]
@@ -19,6 +20,7 @@ const typeDefs = gql`
     type Query{
        season(teamName: String!, year: Int!): Season 
        currentSeason(teamName: String!): Season
+       currentSeasons(teamNames: [String!]): [Season]
        results(teamName: String!, year: Int!): [String]
        test(testString: String!): String
     }
