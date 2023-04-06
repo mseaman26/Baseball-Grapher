@@ -3,12 +3,15 @@ import Chart from 'chart.js/auto';
 import { useQuery, useMutation } from '@apollo/client';
 import {GET_SEASON, GET_CURRENT_SEASON, GET_CURRENT_SEASONS} from '../utils/queries'
 import 'chartjs-plugin-zoom';
+import { chooseColor } from '../utils/chooseColor';
 
 const LineGraph = () => {
 
   const chartRef = useRef(null);
   const myLineChartRef = useRef(null);
   const [labels, setLabels] = useState([]);
+  const [dataSets, setDataSets] = useState([])
+  const [borderWidth, setBorderWidth] = useState(5)
 
   const { loading, data } = useQuery(GET_CURRENT_SEASON, {
 		variables: { 
@@ -21,7 +24,7 @@ const LineGraph = () => {
 
   const {seasonsLoading, data: seasonsData} = useQuery(GET_CURRENT_SEASONS, {
     variables: {
-      teamNames: ['San Francisco Giants', 'Los Angeles Dodgers']
+      teamNames: ['San Francisco Giants', 'Los Angeles Dodgers', 'San Diego Padres', `Arizona D'Backs`, `Colorado Rockies`]
     },
     fetchPolicy: 'cache-and-network' //gets most updated data
   })
@@ -33,35 +36,45 @@ const LineGraph = () => {
   useEffect(() => {
     if (seasons[0]) {
       setLabels(seasons[0].labels);
+      setBorderWidth(240/labels.length)
+      let dataArr =[]
+      for(let i =0; i < seasons.length; i++){
+        dataArr.push(
+          {
+            label: seasons[i].teamName,
+            data: seasons[i].standings,
+            fill: false,
+            borderColor: chooseColor(seasons[i].teamName),
+            borderWidth: 40,
+            elements: {
+              line: {
+                borderWidth: 30
+              }
+            },
+            pointRadius: 5, // hide the circles by default
+            pointHoverRadius: 15, // set the radius of the circle on hover
+            pointBackgroundColor: 'rgba(254, 90, 29, 0.1)',
+            pointBorderColor: 'rgb(254, 90, 29, 0)', // desired point color,
+            tension: 0,
+          })
+      }
+      setDataSets(dataArr)
     }
+
   }, [seasons]);
 
   useEffect(() => {
-    try{
-      console.log(seasons[0].labels)
-    }catch(e){
+  
+    setBorderWidth(240/labels.length)
+    console.log(borderWidth)
 
-    }
     const ctx = chartRef.current.getContext('2d');
     
     myLineChartRef.current = new Chart(ctx, {
       type: 'line',
       data: {
         labels: labels,
-        datasets: [
-          {
-            label: 'San Francisco Giants',
-            data: seasonData.standings,
-            fill: false,
-            borderColor: 'rgb(254, 90, 29)',
-            borderWidth: 7,
-            pointRadius: 5, // hide the circles by default
-            pointHoverRadius: 15, // set the radius of the circle on hover
-            pointBackgroundColor: 'rgba(254, 90, 29, 0.1)',
-            pointBorderColor: 'rgb(254, 90, 29, 0)', // desired point color,
-            tension: 0,
-          },
-        ],
+        datasets: dataSets,
       },
       options: {
         maintainAspectRatio: false, // Disable the default aspect ratio
@@ -71,6 +84,7 @@ const LineGraph = () => {
           x:{
             type: 'linear',
             ticks: {
+              fontSize: 24,
               stepSize: 1,
               autoSkip: false,
               // callback: (value, index, values) => {
@@ -102,7 +116,8 @@ const LineGraph = () => {
           y: {
             ticks: {
               stepSize: 1,
-              autoSkip: false
+              autoSkip: false,
+              fontSize: 24,
               // callback: (value, index, values) => {
               //   if (Number.isInteger(value)) {
               //     return value;
@@ -158,7 +173,7 @@ const LineGraph = () => {
      
   
   return (
-      <canvas ref={chartRef}/>
+      <canvas ref={chartRef} width={1500}/>
     
   )
 };
