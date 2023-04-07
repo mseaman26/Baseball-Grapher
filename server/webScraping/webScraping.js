@@ -175,7 +175,7 @@ const scrapeGames = async (teamName) => {
                             break
                     }
                 }
-        console.log(labels)
+
         return {
             teamName: teamName,
             labels: labels,

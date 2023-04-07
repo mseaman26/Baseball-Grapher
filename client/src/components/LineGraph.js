@@ -12,6 +12,11 @@ const LineGraph = () => {
   const [labels, setLabels] = useState([]);
   const [dataSets, setDataSets] = useState([])
   const [borderWidth, setBorderWidth] = useState(5)
+  const [dataMin, setDatamin] = useState(0)
+  const [dataMax, setDataMax] = useState(0)
+  const [numberOfLabels, setNumberOfLabels] = useState(0)
+  const [graphWidth, setGraphWidth] = useState(800)
+  const [graphHeight, setGraphHeight] = useState(600)
 
   const { loading, data } = useQuery(GET_CURRENT_SEASON, {
 		variables: { 
@@ -36,16 +41,21 @@ const LineGraph = () => {
   useEffect(() => {
     if (seasons[0]) {
       setLabels(seasons[0].labels);
+      console.log(seasons)
       setBorderWidth(240/labels.length)
       let dataArr =[]
+      let dataMinMax = []
+      
+      console.log('datamin', dataMin, 'datamax', dataMax)
       for(let i =0; i < seasons.length; i++){
+        dataMinMax.push(Math.min(...seasons[i].standings), Math.max(...seasons[i].standings))
         dataArr.push(
           {
             label: seasons[i].teamName,
             data: seasons[i].standings,
             fill: false,
             borderColor: chooseColor(seasons[i].teamName),
-            borderWidth: 40,
+            borderWidth: 20,
             elements: {
               line: {
                 borderWidth: 30
@@ -58,10 +68,19 @@ const LineGraph = () => {
             tension: 0,
           })
       }
+      
+      setDatamin(Math.min(...dataMinMax))
+      setDataMax(Math.max(...dataMinMax))
+      console.log(dataMinMax)
+      setGraphHeight(Math.floor(graphWidth/(labels.length-1) * (dataMax-dataMin)))
+      setNumberOfLabels(seasons[0].labels.length)
+      console.log('datamin', dataMin, 'datamax', dataMax, 'number of labels', numberOfLabels)
+      
       setDataSets(dataArr)
+      
     }
 
-  }, [seasons]);
+  }, [seasons, dataMax, dataMin, graphHeight]);
 
   useEffect(() => {
   
@@ -69,6 +88,7 @@ const LineGraph = () => {
     console.log(borderWidth)
 
     const ctx = chartRef.current.getContext('2d');
+    const aspecRatio = graphHeight/graphWidth*2
     
     myLineChartRef.current = new Chart(ctx, {
       type: 'line',
@@ -79,7 +99,7 @@ const LineGraph = () => {
       options: {
         maintainAspectRatio: false, // Disable the default aspect ratio
         responsive: false,
-        aspectRatio: 1, // Set a fixed aspect ratio of 1:1
+        aspectRatio: aspecRatio, // Set a fixed aspect ratio of 1:1
         scales: {
           x:{
             type: 'linear',
@@ -169,11 +189,11 @@ const LineGraph = () => {
     return () => {
       myLineChartRef.current.destroy();
     };
-  }, [labels]);
+  }, [labels, graphHeight]);
      
-  
+
   return (
-      <canvas ref={chartRef} width={1500}/>
+      <canvas ref={chartRef} width={graphWidth}/>
     
   )
 };

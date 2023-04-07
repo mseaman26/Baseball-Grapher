@@ -36,18 +36,23 @@ const scrapeCurrentSeason = async (teamName) => {
 
         $('.game').each(function (i, element) {
             let game = $(element).text().replace(/\s\s+/g, '');
-            console.log(game)
             let date = $(element).parent().find('h3').text();
-
-            if(date.includes('Today')){
-                return false
+            if(game.includes(teamName)){
+                console.log('teamname')
             }
-            console.log(date)
-            let month = date.split(',')[1].split(' ')[1]
-            //day number within month
-            let day = parseInt(date.split(',')[1].split(' ')[2])
-            //numeric value for date
-            let dayNumber = day + numerateMonth(month)
+            let month
+            let day
+            let dayNumber
+            if(!date.includes('Today')){
+                month = date.split(',')[1].split(' ')[1]
+                //day number within month
+                day = parseInt(date.split(',')[1].split(' ')[2])
+                //numeric value for date
+                dayNumber = day + numerateMonth(month)
+            }else{
+                dayNumber = games[games.length - 1].dayNumber + 1
+            }
+            
             let away = game.split('@')[0];
             let home = game.split('@')[1];
             let awayTeam = away.split('(')[0];
@@ -66,6 +71,9 @@ const scrapeCurrentSeason = async (teamName) => {
             }
             
             if (game.includes(teamName)) {
+                if(game.includes('Preview')){
+                    return false
+                }
 
                 //check for off days
                 if(games.length > 0 && dayNumber - games[games.length - 1].dayNumber > 1){
@@ -181,7 +189,7 @@ const scrapeCurrentSeason = async (teamName) => {
                             break
                     }
                 }
-        console.log(labels)
+
         return {
             teamName: teamName,
             labels: labels,
