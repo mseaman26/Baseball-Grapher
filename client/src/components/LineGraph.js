@@ -16,7 +16,7 @@ const LineGraph = () => {
   const [dataMin, setDatamin] = useState(0)
   const [dataMax, setDataMax] = useState(0)
   const [numberOfLabels, setNumberOfLabels] = useState(0)
-  const [graphWidth, setGraphWidth] = useState(800)
+  const [graphWidth, setGraphWidth] = useState(1000)
   const [graphHeight, setGraphHeight] = useState(600)
   const [teamNames, setTeamNames] = useState([])
   const handleNLWEST = () => {
@@ -25,12 +25,25 @@ const LineGraph = () => {
   const handleNLCENTRAL = () => {
     setTeamNames([`Chicago Cubs`, `St. Louis Cardinals`, `Cincinnati Reds`, `Pittsburgh Pirates`, `Milwaukee Brewers`])
   }
+  const handleNLEAST = () => {
+    setTeamNames([`Atlanta Braves`, `New York Mets`, `Philadelphia Phillies`, `Washington Nationals`, `Miami Marlins`])
+    console.log(labels)
+  }
+  const handleALWEST = () => {
+    setTeamNames([`Oakland Athletics`, `Los Angeles Angels`, `Texas Rangers`, `Seattle Mariners`, `Houston Astros`])
+  }
+  const handleALCENTRAL = () => {
+    setTeamNames([`Detroit Tigers`, `Kansas City Royals`, `Chicago White Sox`, `Cleveland Guardians`,`Minnesota Twins` ])
+  }
+  const handleALEAST = () => {
+    setTeamNames([`New York Yankees`, `Boston Red Sox`, `Baltimore Orioles`, `Toronto Blue Jays`, `Tampa Bay Rays`])
+  }
 
   const { loading, data } = useQuery(GET_CURRENT_SEASON, {
 		variables: { 
       teamName: 'San Francisco Giants',
     },
-		fetchPolicy: 'cache-and-network' //gets most updated data
+		fetchPolicy: 'network-only' //gets most updated data
 	});
 
   const seasonData = data?.currentSeason || [];
@@ -47,8 +60,21 @@ const LineGraph = () => {
 
   
   useEffect(() => {
+    console.log('hello')
     if (seasons[0]) {
-      setLabels(seasons[0].labels);
+      let labelMax = 0
+      let max = 0
+      for(let i =0; i < seasons.length; i++){
+        
+        if(seasons[i].labels.length > max){
+          console.log(seasons[i].labels.length)
+          max = seasons[i].labels.length
+          setLabels(seasons[i].labels)
+          console.log(i)
+        }
+      }
+      
+      console.log(labelMax)
       console.log(seasons)
       setBorderWidth(240/labels.length)
       let dataArr =[]
@@ -92,7 +118,7 @@ const LineGraph = () => {
 
   useEffect(() => {
   
-    setBorderWidth(300/labels.length)
+    setBorderWidth(250/labels.length)
     console.log(borderWidth)
     console.log(graphWidth)
     setGraphHeight(graphWidth/(labels.length -1) * (dataMax - dataMin))
@@ -199,14 +225,18 @@ const LineGraph = () => {
     return () => {
       myLineChartRef.current.destroy();
     };
-  }, [labels, graphHeight, teamNames]);
+  }, [labels, graphHeight, teamNames, handleNLCENTRAL, handleNLWEST, handleNLEAST]);
      
 
   return (
     <div className='container'>
       <h1>Select a division</h1>
-      <button className='btn' onClick={handleNLWEST}>NL WEST</button>
-      <button className='btn' onClick={handleNLCENTRAL}>NL CENTRAL</button>
+      <button className='btn active' onClick={handleNLWEST}>NL WEST</button>
+      <button className='btn active' onClick={handleNLCENTRAL}>NL CENTRAL</button>
+      <button className='btn active' onClick={handleNLEAST}>NL EAST</button>
+      <button className='btn active' onClick={handleALWEST}>AL WEST</button>
+      <button className='btn active' onClick={handleALCENTRAL}>AL CENTRAL</button>
+      <button className='btn active' onClick={handleALEAST}>AL EAST</button>
       <canvas ref={chartRef} width={graphWidth}/>
     </div>
   )

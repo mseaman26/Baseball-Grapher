@@ -68,7 +68,15 @@ const scrapeCurrentSeason = async (teamName) => {
             }
             
             if (game.includes(teamName)) {
+                console.log(date, dayNumber)
                 if(game.includes('Preview')){
+                    console.log('preview', dayNumber)
+                    if(games.length > 0 && dayNumber - games[games.length - 1].dayNumber > 1){
+                        for(let i = 1; i < dayNumber - games[games.length - 1].dayNumber; i++){
+                            console.log('push off')
+                            results.push('off')
+                        }
+                    }
                     return false
                 }
 
