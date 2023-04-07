@@ -10,6 +10,16 @@ const chooseColor = (teamName) => {
             return `rgb(214, 22, 45)`
         case `Colorado Rockies`:
             return `rgb(168, 11, 206)`
+        case `Chicago Cubs`:
+            return `rgb(9, 0, 198)`
+        case `St. Louis Cardinals`:
+            return `rgb(221, 114, 114)`
+        case `Cincinnati Reds`:
+            return `rgb(255,0,0)`
+        case `Pittsburgh Pirates`:
+            return `rgb(255, 195, 36)`
+        case `Milwaukee Brewers`:
+            return `rgb(178, 142, 66)`
         default:
             return 'rgb(254, 90, 29)'
 

@@ -37,9 +37,6 @@ const scrapeCurrentSeason = async (teamName) => {
         $('.game').each(function (i, element) {
             let game = $(element).text().replace(/\s\s+/g, '');
             let date = $(element).parent().find('h3').text();
-            if(game.includes(teamName)){
-                console.log('teamname')
-            }
             let month
             let day
             let dayNumber

@@ -4,6 +4,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import {GET_SEASON, GET_CURRENT_SEASON, GET_CURRENT_SEASONS} from '../utils/queries'
 import 'chartjs-plugin-zoom';
 import { chooseColor } from '../utils/chooseColor';
+import 'bootstrap'
 
 const LineGraph = () => {
 
@@ -17,6 +18,13 @@ const LineGraph = () => {
   const [numberOfLabels, setNumberOfLabels] = useState(0)
   const [graphWidth, setGraphWidth] = useState(800)
   const [graphHeight, setGraphHeight] = useState(600)
+  const [teamNames, setTeamNames] = useState([])
+  const handleNLWEST = () => {
+    setTeamNames(['San Francisco Giants', 'Los Angeles Dodgers', 'San Diego Padres', `Arizona D'Backs`, `Colorado Rockies`])
+  }
+  const handleNLCENTRAL = () => {
+    setTeamNames([`Chicago Cubs`, `St. Louis Cardinals`, `Cincinnati Reds`, `Pittsburgh Pirates`, `Milwaukee Brewers`])
+  }
 
   const { loading, data } = useQuery(GET_CURRENT_SEASON, {
 		variables: { 
@@ -29,7 +37,7 @@ const LineGraph = () => {
 
   const {seasonsLoading, data: seasonsData} = useQuery(GET_CURRENT_SEASONS, {
     variables: {
-      teamNames: ['San Francisco Giants', 'Los Angeles Dodgers', 'San Diego Padres', `Arizona D'Backs`, `Colorado Rockies`]
+      teamNames: teamNames
     },
     fetchPolicy: 'cache-and-network' //gets most updated data
   })
@@ -55,7 +63,7 @@ const LineGraph = () => {
             data: seasons[i].standings,
             fill: false,
             borderColor: chooseColor(seasons[i].teamName),
-            borderWidth: 20,
+            borderWidth: borderWidth,
             elements: {
               line: {
                 borderWidth: 30
@@ -63,7 +71,7 @@ const LineGraph = () => {
             },
             pointRadius: 5, // hide the circles by default
             pointHoverRadius: 15, // set the radius of the circle on hover
-            pointBackgroundColor: 'rgba(254, 90, 29, 0.1)',
+            pointBackgroundColor: 'rgba(254, 90, 29, 0)',
             pointBorderColor: 'rgb(254, 90, 29, 0)', // desired point color,
             tension: 0,
           })
@@ -80,15 +88,17 @@ const LineGraph = () => {
       
     }
 
-  }, [seasons, dataMax, dataMin, graphHeight]);
+  }, [seasons, dataMax, dataMin, graphHeight, setTeamNames]);
 
   useEffect(() => {
   
-    setBorderWidth(240/labels.length)
+    setBorderWidth(300/labels.length)
     console.log(borderWidth)
-
+    console.log(graphWidth)
+    setGraphHeight(graphWidth/(labels.length -1) * (dataMax - dataMin))
+    console.log(graphHeight)
     const ctx = chartRef.current.getContext('2d');
-    const aspecRatio = graphHeight/graphWidth*2
+    const aspecRatio = graphWidth/graphHeight
     
     myLineChartRef.current = new Chart(ctx, {
       type: 'line',
@@ -189,12 +199,16 @@ const LineGraph = () => {
     return () => {
       myLineChartRef.current.destroy();
     };
-  }, [labels, graphHeight]);
+  }, [labels, graphHeight, teamNames]);
      
 
   return (
+    <div className='container'>
+      <h1>Select a division</h1>
+      <button className='btn' onClick={handleNLWEST}>NL WEST</button>
+      <button className='btn' onClick={handleNLCENTRAL}>NL CENTRAL</button>
       <canvas ref={chartRef} width={graphWidth}/>
-    
+    </div>
   )
 };
 
