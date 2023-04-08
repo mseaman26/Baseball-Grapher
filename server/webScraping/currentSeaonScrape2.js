@@ -90,10 +90,11 @@ const scrapeCurrentSeason = async (teamName) => {
 
                 }
 
-        console.log(labels)
-        console.log(standings) 
+        
             } 
         });
+        console.log(labels)
+        console.log(standings) 
     return {
         teamName: teamName
     }
