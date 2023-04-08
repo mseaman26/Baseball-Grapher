@@ -9,7 +9,7 @@
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
     "build": "cd client && npm run build",
-    "scrape": "node server/webScraping/currentSeasonScrape.js"
+    "scrape": "node server/webScraping/currentSeaonScrape2.js"
   },
   "repository": {
     "type": "git",

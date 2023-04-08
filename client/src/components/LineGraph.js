@@ -27,7 +27,6 @@ const LineGraph = () => {
   }
   const handleNLEAST = () => {
     setTeamNames([`Atlanta Braves`, `New York Mets`, `Philadelphia Phillies`, `Washington Nationals`, `Miami Marlins`])
-    console.log(labels)
   }
   const handleALWEST = () => {
     setTeamNames([`Oakland Athletics`, `Los Angeles Angels`, `Texas Rangers`, `Seattle Mariners`, `Houston Astros`])
@@ -39,14 +38,14 @@ const LineGraph = () => {
     setTeamNames([`New York Yankees`, `Boston Red Sox`, `Baltimore Orioles`, `Toronto Blue Jays`, `Tampa Bay Rays`])
   }
 
-  const { loading, data } = useQuery(GET_CURRENT_SEASON, {
-		variables: { 
-      teamName: 'San Francisco Giants',
-    },
-		fetchPolicy: 'network-only' //gets most updated data
-	});
+  // const { loading, data } = useQuery(GET_CURRENT_SEASON, {
+	// 	variables: { 
+  //     teamName: 'San Francisco Giants',
+  //   },
+	// 	fetchPolicy: 'network-only' //gets most updated data
+	// });
 
-  const seasonData = data?.currentSeason || [];
+  // const seasonData = data?.currentSeason || [];
 
   const {seasonsLoading, data: seasonsData} = useQuery(GET_CURRENT_SEASONS, {
     variables: {
@@ -60,27 +59,20 @@ const LineGraph = () => {
 
   
   useEffect(() => {
-    console.log('hello')
     if (seasons[0]) {
       let labelMax = 0
       let max = 0
-      for(let i =0; i < seasons.length; i++){
-        
+      for(let i =0; i < seasons.length; i++){      
         if(seasons[i].labels.length > max){
-          console.log(seasons[i].labels.length)
           max = seasons[i].labels.length
           setLabels(seasons[i].labels)
-          console.log(i)
         }
       }
-      
-      console.log(labelMax)
-      console.log(seasons)
+
       setBorderWidth(240/labels.length)
       let dataArr =[]
       let dataMinMax = []
       
-      console.log('datamin', dataMin, 'datamax', dataMax)
       for(let i =0; i < seasons.length; i++){
         dataMinMax.push(Math.min(...seasons[i].standings), Math.max(...seasons[i].standings))
         dataArr.push(
@@ -105,10 +97,8 @@ const LineGraph = () => {
       
       setDatamin(Math.min(...dataMinMax))
       setDataMax(Math.max(...dataMinMax))
-      console.log(dataMinMax)
       setGraphHeight(Math.floor(graphWidth/(labels.length-1) * (dataMax-dataMin)))
       setNumberOfLabels(seasons[0].labels.length)
-      console.log('datamin', dataMin, 'datamax', dataMax, 'number of labels', numberOfLabels)
       
       setDataSets(dataArr)
       
@@ -119,10 +109,7 @@ const LineGraph = () => {
   useEffect(() => {
   
     setBorderWidth(250/labels.length)
-    console.log(borderWidth)
-    console.log(graphWidth)
     setGraphHeight(graphWidth/(labels.length -1) * (dataMax - dataMin))
-    console.log(graphHeight)
     const ctx = chartRef.current.getContext('2d');
     const aspecRatio = graphWidth/graphHeight
     
@@ -237,7 +224,8 @@ const LineGraph = () => {
       <button className='btn active' onClick={handleALWEST}>AL WEST</button>
       <button className='btn active' onClick={handleALCENTRAL}>AL CENTRAL</button>
       <button className='btn active' onClick={handleALEAST}>AL EAST</button>
-      <canvas ref={chartRef} width={graphWidth}/>
+      {seasonsLoading ? <></> : <canvas ref={chartRef} width={graphWidth}/>}
+      
     </div>
   )
 };

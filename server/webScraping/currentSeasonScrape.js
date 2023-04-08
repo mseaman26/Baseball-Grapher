@@ -36,41 +36,47 @@ const scrapeCurrentSeason = async (teamName) => {
 
         $('.game').each(function (i, element) {
             let game = $(element).text().replace(/\s\s+/g, '');
-            let date = $(element).parent().find('h3').text();
-            let month
-            let day
-            let dayNumber
-            if(!date.includes('Today')){
+            
+            if (game.includes(teamName)) {
+                let date = $(element).parent().find('h3').text();
+                let month
+                let day
+                let dayNumber
+                if(!date.includes('Today')){
                 month = date.split(',')[1].split(' ')[1]
                 //day number within month
                 day = parseInt(date.split(',')[1].split(' ')[2])
                 //numeric value for date
                 dayNumber = day + numerateMonth(month)
-            }else{
-                dayNumber = games[games.length - 1].dayNumber + 1
-            }
+                }else{
+                    let tempdate = $(element).parent().prev().find('h3').text()
+                    let tempMonth = tempdate.split(',')[1].split(' ')[1]
+                    let tempDay = parseInt(tempdate.split(',')[1].split(' ')[2])
+                    console.log("daybumber: ", dayNumber)
+                    dayNumber = tempDay + numerateMonth(tempMonth)
+                    console.log("daybumber: ", dayNumber)
+                    
+                }
             
-            let away = game.split('@')[0];
-            let home = game.split('@')[1];
-            let awayTeam = away.split('(')[0];
-            let homeTeam = home.split('(')[0];
-            let awayScore = parseInt(away.split('(')[1]);
-            let homeScore = parseInt(home.split('(')[1]);
-            let teamScore
-            let opponentScore
-            //finding out who won
-            if(homeTeam === teamName){
-                teamScore = homeScore
-                opponentScore = awayScore
-            }else{
-                teamScore = awayScore
-                opponentScore = homeScore
-            }
+                let away = game.split('@')[0];
+                let home = game.split('@')[1];
+                let awayTeam = away.split('(')[0];
+                let homeTeam = home.split('(')[0];
+                let awayScore = parseInt(away.split('(')[1]);
+                let homeScore = parseInt(home.split('(')[1]);
+                let teamScore
+                let opponentScore
+                //finding out who won
+                if(homeTeam === teamName){
+                    teamScore = homeScore
+                    opponentScore = awayScore
+                }else{
+                    teamScore = awayScore
+                    opponentScore = homeScore
+                }
             
-            if (game.includes(teamName)) {
-                console.log(date, dayNumber)
                 if(game.includes('Preview')){
-                    console.log('preview', dayNumber)
+                    
                     if(games.length > 0 && dayNumber - games[games.length - 1].dayNumber > 1){
                         for(let i = 1; i < dayNumber - games[games.length - 1].dayNumber; i++){
                             console.log('push off')
