@@ -42,12 +42,13 @@ const scrapeCurrentSeason = async (teamName) => {
             const dailyGames = $(this).parent().find('.game');
             let todaysTeamGames = []
             let daysPerGame = 1
+            if($(dailyGames).text().includes('Preview')){
+                return false
+            }
             //add specified teams' games to todaysGames array
             dailyGames.each(function(j, gameElement) {
                 if($(gameElement).text().includes(teamName)){
-                    if($(gameElement).text().includes('Preview')){
-                        return false
-                    }
+                    
                     todaysTeamGames.push($(gameElement).text())
                 }
             });
@@ -93,13 +94,15 @@ const scrapeCurrentSeason = async (teamName) => {
         
             } 
         });
-        console.log(labels)
-        console.log(standings) 
+        console.log(standings)
     return {
-        teamName: teamName
+        teamName: teamName,
+        labels: labels,
+        standings, standings
     }
     }catch(e){
         console.log(e)
     }
 }
 scrapeCurrentSeason('San Francisco Giants')
+module.exports = {scrapeCurrentSeason}

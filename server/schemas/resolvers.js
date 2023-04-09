@@ -1,5 +1,5 @@
 const { scrapeGames } = require("../webScraping/webScraping")
-const { scrapeCurrentSeason} = require('../webScraping/currentSeasonScrape')
+const { scrapeCurrentSeason } = require ('../webScraping/currentSeaonScrape.js')
 const {Game} = require ('../models')
 
 const resolvers = {
@@ -23,6 +23,8 @@ const resolvers = {
            
         },
         currentSeasons: async (parent, args) => {
+            console.log('Importing scrapeCurrentSeason:', scrapeCurrentSeason)
+
             try{
                 let seasons = []
                 for(let i = 0; i < args.teamNames.length; i++){

@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import GraphCanvas from './components/GraphCanvas';
 import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client';
-import LineGraph from './components/LineGraph';
+import LineGraph2 from './components/LineGraph';
 
 const client = new ApolloClient({
 	uri: '/graphql',
@@ -14,7 +14,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <Routes>
-          <Route path={'/'} element={<LineGraph/>}></Route>
+          <Route path={'/'} element={<LineGraph2/>}></Route>
         </Routes>
       </Router>
     </ApolloProvider>
