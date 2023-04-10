@@ -14,7 +14,6 @@
   "engines": {
     "node": "16.18.0"
   },
-  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mseaman26/Baseball-Grapher.git"
@@ -29,6 +28,7 @@
   },
   "homepage": "https://github.com/mseaman26/Baseball-Grapher#readme",
   "dependencies": {
-    "chartjs-plugin-zoom": "^2.0.1"
+    "chartjs-plugin-zoom": "^2.0.1",
+    "cheerio": "^1.0.0-rc.12"
   }
 }
