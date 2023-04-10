@@ -11,6 +11,10 @@
     "build": "cd client && npm run build",
     "scrape": "node server/webScraping/currentSeaonScrape.js"
   },
+  "engines": {
+    "node": "16.18.0"
+  },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mseaman26/Baseball-Grapher.git"
