@@ -94,7 +94,7 @@ const scrapeCurrentSeason = async (teamName) => {
         
             } 
         });
-        console.log(standings)
+
     return {
         teamName: teamName,
         labels: labels,
