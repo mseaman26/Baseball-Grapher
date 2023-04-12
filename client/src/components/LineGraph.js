@@ -4,12 +4,12 @@ import { useQuery, useMutation } from '@apollo/client';
 import {GET_SEASON, GET_CURRENT_SEASON, GET_CURRENT_SEASONS} from '../utils/queries'
 import 'chartjs-plugin-zoom';
 import { chooseColor } from '../utils/chooseColor';
-import 'bootstrap'
 
 const LineGraph = () => {
-
+  console.log('lineGraph1')
   const chartRef = useRef(null);
   const myLineChartRef = useRef(null);
+  const containerRef = useRef(null)
   const [labels, setLabels] = useState([]);
   const [dataSets, setDataSets] = useState([])
   const [borderWidth, setBorderWidth] = useState(5)
@@ -38,14 +38,6 @@ const LineGraph = () => {
     setTeamNames([`New York Yankees`, `Boston Red Sox`, `Baltimore Orioles`, `Toronto Blue Jays`, `Tampa Bay Rays`])
   }
 
-  // const { loading, data } = useQuery(GET_CURRENT_SEASON, {
-	// 	variables: { 
-  //     teamName: 'San Francisco Giants',
-  //   },
-	// 	fetchPolicy: 'network-only' //gets most updated data
-	// });
-
-  // const seasonData = data?.currentSeason || [];
 
   const {seasonsLoading, data: seasonsData} = useQuery(GET_CURRENT_SEASONS, {
     variables: {
@@ -130,17 +122,6 @@ const LineGraph = () => {
               fontSize: 24,
               stepSize: 1,
               autoSkip: false,
-              // callback: (value, index, values) => {
-              //   if (index % 10 === 0) {
-              //     return value;
-              //   }
-              //   return ''; // Return empty string for non-visible labels
-              // }
-              // callback: (value, index, values) => {
-              //   if (value % 10 ===0) {
-              //     return value;
-              //   }
-              // }
             },
             grid: {
               display: true,
@@ -216,7 +197,7 @@ const LineGraph = () => {
      
 
   return (
-    <div className='container'>
+    <div className='container' ref={containerRef}>
       <h1>Select a division</h1>
       <button className='btn active' onClick={handleNLWEST}>NL WEST</button>
       <button className='btn active' onClick={handleNLCENTRAL}>NL CENTRAL</button>
