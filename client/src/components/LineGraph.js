@@ -166,7 +166,7 @@ const LineGraph = () => {
       options: {
         onResize: () => {
           console.log('resize', window.innerWidth)
-          setBorderWidth(window.innerWidth/100)
+          setBorderWidth(window.innerWidth/70)
         },
         maintainAspectRatio: true, // Disable the default aspect ratio
         responsive: true,
