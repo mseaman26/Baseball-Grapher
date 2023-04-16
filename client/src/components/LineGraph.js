@@ -150,7 +150,7 @@ const LineGraph = () => {
     console.log(borderWidth)
     setGraphHeight((graphWidth / (labels.length - 1)) * (dataMax - dataMin));
     let aspecheight = dataMax - dataMin;
-    let aspecWidth = (labels.length - 1);
+    let aspecWidth = (labels.length -3);
     
     console.log(dataMax, dataMin, aspecheight, aspecWidth)
 
