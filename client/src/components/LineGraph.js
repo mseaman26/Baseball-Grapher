@@ -144,7 +144,7 @@ const LineGraph = () => {
 
       setDataSets(dataArr);
     }
-  }, [seasons, dataMax, dataMin, graphHeight, setTeamNames, setBorderWidth]);
+  }, [seasons, dataMax, dataMin, graphHeight]);
 
   useEffect(() => {
     console.log(borderWidth)
@@ -258,11 +258,6 @@ const LineGraph = () => {
     };
   }, [
     labels,
-    graphHeight,
-    teamNames,
-    handleNLCENTRAL,
-    handleNLWEST,
-    handleNLEAST,
   ]);
 
   return (
