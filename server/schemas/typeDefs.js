@@ -12,7 +12,7 @@ const typeDefs = gql`
     type Season{
         teamName: String
         labels: [Float]
-        standings: [Int]
+        standings: [Float]
     }
 
     type Query{

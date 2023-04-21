@@ -41,7 +41,7 @@ const scrapeCurrentSeason = async (teamName) => {
         $('h3').each(function(i, element) {
             const dailyGames = $(this).parent().find('.game');
             let todaysTeamGames = []
-            let daysPerGame = 1
+            let doubleHeader = false
             if($(dailyGames).text().includes('Preview')){
                 return false
             }
@@ -54,14 +54,17 @@ const scrapeCurrentSeason = async (teamName) => {
             });
             //handle days off
             if(todaysTeamGames.length === 0){
-                currentDay += 1
+                currentDay += .5
+                labels.push(currentDay)
+                standings.push(currentStanding)
+                currentDay += .5
                 labels.push(currentDay)
                 standings.push(currentStanding)
             }
             //if there's more than one game, make daysPerGame .5, otherwise make it 1
             if(todaysTeamGames.length > 1){
-                daysPerGame = .5
-            }else {daysPerGame = 1}
+                doubleHeader = true
+            }else {doubleHeader = false}
             //performing action on each game
             if(todaysTeamGames.length > 0){
                 for(let i = 0; i < todaysTeamGames.length; i++){
@@ -78,15 +81,41 @@ const scrapeCurrentSeason = async (teamName) => {
                     }
                     //determine win v loss
                     if(teamScore > opponentScore){
-                        currentStanding += 1
-                        currentDay += daysPerGame
-                        standings.push(currentStanding)
-                        labels.push(currentDay)
+                        
+                        if(doubleHeader){
+                            currentStanding += 1
+                            currentDay += .5
+                            standings.push(currentStanding)
+                            labels.push(currentDay)
+                        }else{
+                            currentStanding += .5
+                            currentDay += .5
+                            standings.push(currentStanding)
+                            labels.push(currentDay)
+                            currentStanding += .5
+                            currentDay += .5
+                            standings.push(currentStanding)
+                            labels.push(currentDay)
+
+                        }
+                        
+                        
                     }else {
-                        currentStanding -= 1
-                        currentDay += daysPerGame
-                        standings.push(currentStanding)
-                        labels.push(currentDay)
+                        if(doubleHeader){
+                            currentStanding -= 1
+                            currentDay += .5
+                            standings.push(currentStanding)
+                            labels.push(currentDay)
+                        }else{
+                            currentStanding -= .5
+                            currentDay += .5
+                            standings.push(currentStanding)
+                            labels.push(currentDay)
+                            currentStanding -= .5
+                            currentDay += .5
+                            standings.push(currentStanding)
+                            labels.push(currentDay) 
+                        }
                     }
 
                 }

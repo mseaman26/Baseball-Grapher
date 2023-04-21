@@ -150,13 +150,13 @@ const LineGraph = () => {
     console.log(borderWidth)
     setGraphHeight((graphWidth / (labels.length - 1)) * (dataMax - dataMin));
     let aspecheight = dataMax - dataMin;
-    let aspecWidth = (labels.length -3);
+    let aspecWidth = (labels.length -3)/2;
     
     console.log(dataMax, dataMin, aspecheight, aspecWidth)
 
     const ctx = chartRef.current.getContext("2d");
     let aspecRatio = aspecWidth / aspecheight;
-
+    console.log(dataSets)
     myLineChartRef.current = new Chart(ctx, {
       type: "line",
       data: {
