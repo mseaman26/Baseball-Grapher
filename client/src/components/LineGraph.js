@@ -183,7 +183,7 @@ const LineGraph = () => {
               display: true,
               drawBorder: false,
               color: (context) => {
-                return context.tick.value === 0
+                return context.tick.value%5 === 0
                   ? "black"
                   : "rgba(0, 0, 0, 0.1)";
               },
@@ -216,8 +216,9 @@ const LineGraph = () => {
                   ? "black"
                   : "rgba(0, 0, 0, 0.1)";
               },
+              //make every 5th level in the standings bolder
               color: (context) => {
-                return context.tick.value === 0
+                return context.tick.value%5 === 0
                   ? "black"
                   : "rgba(0, 0, 0, 0.1)";
               },
