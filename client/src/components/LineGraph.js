@@ -85,14 +85,14 @@ const LineGraph = () => {
     ]);
   };
 
-  const { seasonsLoading, data: seasonsData } = useQuery(GET_CURRENT_SEASONS, {
+  const { loading, data } = useQuery(GET_CURRENT_SEASONS, {
     variables: {
       teamNames: teamNames,
     },
     fetchPolicy: "cache-and-network", //gets most updated data
   });
 
-  const seasons = seasonsData?.currentSeasons || [];
+  const seasons = data?.currentSeasons || [];
 
   useEffect(() => {}, []);
 
@@ -200,11 +200,6 @@ const LineGraph = () => {
               stepSize: 1,
               autoSkip: false,
               fontSize: 24,
-              // callback: (value, index, values) => {
-              //   if (Number.isInteger(value)) {
-              //     return value;
-              //   }
-              // }
             },
             beginAtZero: true,
             grid: {
@@ -262,35 +257,38 @@ const LineGraph = () => {
   ]);
 
   return (
-    <div className="container" ref={containerRef}>
+    <div className="container col-3-lg" ref={containerRef}>
       <h1>Select a division</h1>
-      <button className="btn active" onClick={handleNLWEST}>
-        NL WEST
-      </button>
-      <button className="btn active" onClick={handleNLCENTRAL}>
-        NL CENTRAL
-      </button>
-      <button className="btn active" onClick={handleNLEAST}>
-        NL EAST
-      </button>
-      <button className="btn active" onClick={handleALWEST}>
-        AL WEST
-      </button>
-      <button className="btn active" onClick={handleALCENTRAL}>
-        AL CENTRAL
-      </button>
-      <button className="btn active" onClick={handleALEAST}>
-        AL EAST
-      </button>
-      {seasonsLoading ? (
-        <></>
+      <div className="row">
+        <button className="btn active col-4 col-lg-2" onClick={handleNLWEST}>
+          NL WEST
+        </button>
+        <button className="btn active col-4 col-lg-2" onClick={handleNLCENTRAL}>
+          NL CENTRAL
+        </button>
+        <button className="btn active col-4 col-lg-2" onClick={handleNLEAST}>
+          NL EAST
+        </button>
+        <button className="btn active col-4 col-lg-2" onClick={handleALWEST}>
+          AL WEST
+        </button>
+        <button className="btn active col-4 col-lg-2" onClick={handleALCENTRAL}>
+          AL CENTRAL
+        </button>
+        <button className="btn active col-4 col-lg-2" onClick={handleALEAST}>
+          AL EAST
+        </button>
+      </div>
+      {loading ? (
+        <>loading</>
       ) : (
-        <canvas
+        <></>
+      )}
+      <canvas
           ref={chartRef}
           className="chart_canvas"
           style={{ width: "100%" }}
         />
-      )}
     </div>
   );
 };
