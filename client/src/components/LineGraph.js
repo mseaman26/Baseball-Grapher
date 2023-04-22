@@ -284,7 +284,7 @@ const LineGraph = () => {
       ) : (
         <div className="row">
           {seasons.map((season) => (
-            <h3 className="col-2">test</h3>
+            <div style={{'background-color': chooseColor(season.teamName)}} className="col-2">{season.teamName}</div>
           ))}
         </div>
       )}
