@@ -280,6 +280,15 @@ const LineGraph = () => {
         </button>
       </div>
       {loading ? (
+        <></>
+      ) : (
+        <div className="row">
+          {seasons.map((season) => (
+            <h3 className="col-2">test</h3>
+          ))}
+        </div>
+      )}
+      {loading ? (
         <>loading</>
       ) : (
         <></>
