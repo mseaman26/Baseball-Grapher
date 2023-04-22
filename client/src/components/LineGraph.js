@@ -25,6 +25,7 @@ const LineGraph = () => {
   const [graphWidth, setGraphWidth] = useState(1000);
   const [graphHeight, setGraphHeight] = useState(600);
   const [teamNames, setTeamNames] = useState([]);
+  const [graphDisplay, setGraphDisplay] = useState('hidden')
   const reRender = () => {
 
   }
@@ -93,10 +94,10 @@ const LineGraph = () => {
   });
 
   const seasons = data?.currentSeasons || [];
-
-  useEffect(() => {}, []);
+  
 
   useEffect(() => {
+    
     if (seasons[0]) {
       let labelMax = 0;
       let max = 0;
@@ -143,10 +144,12 @@ const LineGraph = () => {
       setNumberOfLabels(seasons[0].labels.length);
 
       setDataSets(dataArr);
+      
     }
   }, [seasons, dataMax, dataMin, graphHeight]);
 
   useEffect(() => {
+    
     console.log(borderWidth)
     setGraphHeight((graphWidth / (labels.length - 1)) * (dataMax - dataMin));
     let aspecheight = dataMax - dataMin;
@@ -248,7 +251,10 @@ const LineGraph = () => {
         },
       },
     });
-
+    if(seasons[0]){
+      setGraphDisplay('visible')
+    }
+    console.log('visible')
     return () => {
       myLineChartRef.current.destroy();
     };
@@ -296,10 +302,11 @@ const LineGraph = () => {
       ) : (
         <></>
       )}
+      
       <canvas
           ref={chartRef}
           className="chart_canvas"
-          style={{ width: "100%" }}
+          style={{ width: "100%", visibility: graphDisplay }}
         />
     </div>
   );
