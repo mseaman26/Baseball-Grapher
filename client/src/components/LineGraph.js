@@ -181,6 +181,13 @@ const LineGraph = () => {
               fontSize: 24,
               stepSize: 1,
               autoSkip: false,
+              callback: function(value, index, values) {
+                // Only show labels for every 5th tick
+                if (index % 5 === 0) {
+                    return value;
+                }
+                return '';
+              }
             },
             grid: {
               display: true,
@@ -201,13 +208,20 @@ const LineGraph = () => {
           y: {
             ticks: {
               stepSize: 1,
-              autoSkip: false,
+              autoSkip: true,
               fontSize: 24,
+              callback: function(value, index, values) {
+                // Only show labels for every 5th tick
+                if (index % 5 === 0) {
+                    return value;
+                }
+                return '';
+              }
             },
             beginAtZero: true,
             grid: {
               borderWidth: (context) => {
-                return context.tick.value === 0 ? 2 : 1;
+                return context.tick.value === 0 ? 5 : 1;
               },
               borderColor: (context) => {
                 return context.tick.value === 0
@@ -221,7 +235,9 @@ const LineGraph = () => {
                   : "rgba(0, 0, 0, 0.1)";
               },
             },
+            
           },
+          
         },
         onClick: (event, chartElement) => {
           if (chartElement[0]) {
@@ -264,7 +280,7 @@ const LineGraph = () => {
 
   return (
     <div className="container col-3-lg" ref={containerRef}>
-      <h1>Select a division</h1>
+      <h1>Select MLB division</h1>
       <div className="row">
         <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleNLWEST}>
           NL WEST
