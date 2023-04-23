@@ -8,7 +8,7 @@ import {
 } from "../utils/queries";
 import "chartjs-plugin-zoom";
 import { chooseColor } from "../utils/chooseColor";
-import "../css/chart.css";
+import "../App.css";
 
 const LineGraph = () => {
   console.log(window.innerWidth)
@@ -266,24 +266,24 @@ const LineGraph = () => {
     <div className="container col-3-lg" ref={containerRef}>
       <h1>Select a division</h1>
       <div className="row">
-        <button className="btn active col-4 col-lg-2" onClick={handleNLWEST}>
+        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleNLWEST}>
           NL WEST
-        </button>
-        <button className="btn active col-4 col-lg-2" onClick={handleNLCENTRAL}>
+        </button></div>
+        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleNLCENTRAL}>
           NL CENTRAL
-        </button>
-        <button className="btn active col-4 col-lg-2" onClick={handleNLEAST}>
+        </button></div>
+        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleNLEAST}>
           NL EAST
-        </button>
-        <button className="btn active col-4 col-lg-2" onClick={handleALWEST}>
+        </button></div>
+        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleALWEST}>
           AL WEST
-        </button>
-        <button className="btn active col-4 col-lg-2" onClick={handleALCENTRAL}>
+        </button></div>
+        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleALCENTRAL}>
           AL CENTRAL
-        </button>
-        <button className="btn active col-4 col-lg-2" onClick={handleALEAST}>
+        </button></div>
+        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleALEAST}>
           AL EAST
-        </button>
+        </button></div>
       </div>
       {loading ? (
         <></>
