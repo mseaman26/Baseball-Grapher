@@ -208,7 +208,7 @@ const LineGraph = () => {
           y: {
             ticks: {
               stepSize: 1,
-              autoSkip: true,
+              autoSkip: false,
               fontSize: 24,
               callback: function(value, index, values) {
                 // Only show labels for every 5th tick
