@@ -151,7 +151,7 @@ const LineGraph = () => {
   useEffect(() => {
     
     setGraphHeight((graphWidth / (labels.length - 1)) * (dataMax - dataMin));
-    let aspecheight = dataMax - dataMin;
+    let aspecheight = dataMax - dataMin +1;
     let aspecWidth = (labels.length -3)/2;
     
     console.log(dataMax, dataMin, aspecheight, aspecWidth)
@@ -175,6 +175,10 @@ const LineGraph = () => {
         aspectRatio: aspecRatio, // Set a fixed aspect ratio of 1:1
         scales: {
           x: {
+            title: {
+              display: true,
+              text: 'Date',
+            },
             type: "linear",
             ticks: {
               fontSize: 48,
@@ -209,6 +213,11 @@ const LineGraph = () => {
             },
           },
           y: {
+            title:{
+              display: true,
+              text: 'Games above/below .500',
+              
+            },
             ticks: {
               stepSize: 1,
               autoSkip: false,
