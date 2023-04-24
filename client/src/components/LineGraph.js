@@ -9,10 +9,10 @@ import {
 import "chartjs-plugin-zoom";
 import { chooseColor } from "../utils/chooseColor";
 import "../App.css";
+import {monthStartIndexes}from '../utils/helpers'
 
 const LineGraph = () => {
-  console.log(window.innerWidth)
-  console.log("lineGraph1");
+  console.log(monthStartIndexes)
   const chartRef = useRef(null);
   const myLineChartRef = useRef(null);
   const containerRef = useRef(null);
@@ -150,7 +150,6 @@ const LineGraph = () => {
 
   useEffect(() => {
     
-    console.log(borderWidth)
     setGraphHeight((graphWidth / (labels.length - 1)) * (dataMax - dataMin));
     let aspecheight = dataMax - dataMin;
     let aspecWidth = (labels.length -3)/2;
@@ -178,13 +177,17 @@ const LineGraph = () => {
           x: {
             type: "linear",
             ticks: {
-              fontSize: 24,
+              fontSize: 48,
               stepSize: 1,
               autoSkip: false,
               callback: function(value, index, values) {
                 // Only show labels for every 5th tick
-                if (index % 5 === 0) {
-                    return value;
+                
+                if(index === 3){
+                  return 'April'
+                }
+                if(index === 33){
+                  return 'May'
                 }
                 return '';
               }
@@ -193,12 +196,12 @@ const LineGraph = () => {
               display: true,
               drawBorder: false,
               color: (context) => {
-                return context.tick.value%5 === 0
+                return monthStartIndexes.includes(context.tick.value)
                   ? "black"
                   : "rgba(0, 0, 0, 0.1)";
               },
               lineWidth: (context) => {
-                return context.tick.value === 0 ? 2 : 1;
+                return monthStartIndexes.includes(context.tick.value) ? 5 : 1;
               },
               borderDash: (context) => {
                 return context.tick.value === 0 ? [2] : [];
@@ -212,7 +215,7 @@ const LineGraph = () => {
               fontSize: 24,
               callback: function(value, index, values) {
                 // Only show labels for every 5th tick
-                if (index % 5 === 0) {
+                if (value % 5 === 0) {
                     return value;
                 }
                 return '';
@@ -220,7 +223,7 @@ const LineGraph = () => {
             },
             beginAtZero: true,
             grid: {
-              borderWidth: (context) => {
+              lineWidth: (context) => {
                 return context.tick.value === 0 ? 5 : 1;
               },
               borderColor: (context) => {

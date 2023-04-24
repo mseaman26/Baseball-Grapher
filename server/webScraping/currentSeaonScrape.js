@@ -5,6 +5,7 @@ const fetch = require('node-fetch')
 const mlbURL = 'https://www.baseball-reference.com/leagues/majors/2023-schedule.shtml'
 
 const numerateMonth = (month) => {
+    //offset is 28 for 2023
     switch (month) {
         case 'March':
             return 0
@@ -24,6 +25,7 @@ const numerateMonth = (month) => {
             return 214
     }
 }
+const monthStartIndexes = [3,33,64,94,125,156,186]
 
 const scrapeCurrentSeason = async (teamName) => {
     try{
