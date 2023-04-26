@@ -187,8 +187,11 @@ const LineGraph = () => {
               callback: function(value, index, values) {
                 // Only show labels for every 5th tick
                 
-                if(index === 3){
+                if(index === 2){
                   return 'April'
+                }
+                if((index - 2)%5 === 0){
+                  return index-2
                 }
                 if(index === 33){
                   return 'May'
