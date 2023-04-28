@@ -151,7 +151,7 @@ const LineGraph = () => {
   useEffect(() => {
     
     setGraphHeight((graphWidth / (labels.length - 1)) * (dataMax - dataMin));
-    let aspecheight = dataMax - dataMin +1;
+    let aspecheight = dataMax - dataMin +2.5;
     let aspecWidth = (labels.length -3)/2;
     
     console.log(dataMax, dataMin, aspecheight, aspecWidth)
