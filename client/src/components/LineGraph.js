@@ -185,16 +185,19 @@ const LineGraph = () => {
               stepSize: 1,
               autoSkip: false,
               callback: function(value, index, values) {
-                // Only show labels for every 5th tick
+                // Only show labels for every 5th tick and account for change of month
                 
                 if(index === 2){
                   return 'April'
                 }
-                if((index - 2)%5 === 0){
+                if(index < 32 && (index - 2)%5 === 0){
                   return index-2
                 }
-                if(index === 33){
+                if(index === 32){
                   return 'May'
+                }
+                if(index < 62 && (index - 2)%5 === 0){
+                  return index - 2
                 }
                 return '';
               }
