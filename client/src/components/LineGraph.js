@@ -12,7 +12,6 @@ import "../App.css";
 import {monthStartIndexes}from '../utils/helpers'
 
 const LineGraph = () => {
-  console.log(monthStartIndexes)
   const chartRef = useRef(null);
   const myLineChartRef = useRef(null);
   const containerRef = useRef(null);
@@ -94,7 +93,7 @@ const LineGraph = () => {
   });
 
   const seasons = data?.currentSeasons || [];
-  
+  console.log(data)
 
   useEffect(() => {
     
@@ -158,7 +157,6 @@ const LineGraph = () => {
 
     const ctx = chartRef.current.getContext("2d");
     let aspecRatio = aspecWidth / aspecheight;
-    console.log(dataSets)
     myLineChartRef.current = new Chart(ctx, {
       type: "line",
       data: {
@@ -186,6 +184,7 @@ const LineGraph = () => {
               autoSkip: false,
               callback: function(value, index, values) {
                 // Only show labels for every 5th tick and account for change of month
+                console.log(dataSets.length)
     
                 if(index === 2){
                   return 'April'
@@ -288,7 +287,7 @@ const LineGraph = () => {
     if(seasons[0]){
       setGraphDisplay('visible')
     }
-    console.log('visible')
+
     return () => {
       myLineChartRef.current.destroy();
     };
