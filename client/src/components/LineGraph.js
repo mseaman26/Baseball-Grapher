@@ -107,7 +107,9 @@ const LineGraph = () => {
         }
       }
 
-      // setBorderWidth(240 / labels.length);
+      //setBorderWidth(500000 /window.innerWidth/ labels.length);
+      setBorderWidth(20);
+      console.log(borderWidth)
       let dataArr = [];
       let dataMinMax = [];
 
@@ -124,7 +126,7 @@ const LineGraph = () => {
           borderWidth: borderWidth,
           elements: {
             line: {
-              borderWidth: 30,
+              borderWidth: borderWidth,
             },
           },
           pointRadius: 5, // hide the circles by default
@@ -164,10 +166,10 @@ const LineGraph = () => {
         datasets: dataSets,
       },
       options: {
-        onResize: () => {
-          console.log('resize', window.innerWidth)
-          setBorderWidth(window.innerWidth/70)
-        },
+        // onResize: () => {
+        //   console.log('resize', window.innerWidth)
+        //   setBorderWidth(window.innerWidth/70)
+        // },
         maintainAspectRatio: true, // Disable the default aspect ratio
         responsive: true,
         aspectRatio: aspecRatio, // Set a fixed aspect ratio of 1:1
@@ -189,14 +191,26 @@ const LineGraph = () => {
                 if(index === 2){
                   return 'April'
                 }
-                if(index < 32 && (index - 2)%5 === 0){
+                if(index < 32 && index > 2 && (index - 2)%5 === 0){
                   return index-2
                 }
                 if(index === 32){
                   return 'May'
                 }
-                if(index < 62 && (index - 2)%5 === 0){
+                if(index < 63 && index > 32 && (index - 32)%5 === 0){
                   return index - 32
+                }
+                if(index === 63){
+                  return 'June'
+                }
+                if(index < 93 && index > 63 && (index - 63)%5 === 0){
+                  return index - 63
+                }
+                if(index === 93){
+                  return 'July'
+                }
+                if(index < 124 && index > 93 && (index - 63)%5 === 0){
+                  return index - 93
                 }
                 return '';
               }
@@ -292,7 +306,7 @@ const LineGraph = () => {
       myLineChartRef.current.destroy();
     };
   }, [
-    labels,
+    labels, borderWidth
   ]);
 
   return (
