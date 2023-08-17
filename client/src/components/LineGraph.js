@@ -108,7 +108,7 @@ const LineGraph = () => {
       }
 
       //setBorderWidth(500000 /window.innerWidth/ labels.length);
-      setBorderWidth(20);
+      setBorderWidth(5);
       console.log(borderWidth)
       let dataArr = [];
       let dataMinMax = [];
