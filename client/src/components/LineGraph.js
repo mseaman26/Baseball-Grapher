@@ -191,28 +191,43 @@ const LineGraph = () => {
                 if(index === 2){
                   return 'April'
                 }
-                if(index < 32 && index > 2 && (index - 2)%5 === 0){
+                if(index < 32 && index > 2 && (index - 2)%10 === 0 && (index-2) < 30){
                   return index-2
                 }
                 if(index === 32){
                   return 'May'
                 }
-                if(index < 63 && index > 32 && (index - 32)%5 === 0){
+                if(index < 63 && index > 32 && (index - 32)%10 === 0 && (index-32) < 30){
                   return index - 32
                 }
                 if(index === 63){
                   return 'June'
                 }
-                if(index < 93 && index > 63 && (index - 63)%5 === 0){
+                if(index < 93 && index > 63 && (index - 63)%10 === 0 && (index-63) < 30){
                   return index - 63
                 }
                 if(index === 93){
                   return 'July'
                 }
-                if(index < 124 && index > 93 && (index - 63)%5 === 0){
+                if(index < 124 && index > 93 && (index - 93)%10 === 0 && (index-93) < 30){
                   return index - 93
                 }
-                return '';
+                if(index === 93){
+                  return 'August'
+                }
+                if(index < 155 && index > 124 && (index - 124)%10 === 0 && (index-124) < 30){
+                  return index - 124
+                }
+                if(index === 124){
+                  return 'September'
+                }
+                if(index < 185 && index > 155 && (index - 155)%10 === 0 && (index-155) < 30){
+                  return index - 155
+                }
+                if(index === 155){
+                  return 'October'
+                }
+              
               }
             },
             grid: {
