@@ -238,9 +238,9 @@ const LineGraph = () => {
                   ? "black"
                   : "rgba(0, 0, 0, 0.1)";
               },
-              lineWidth: (context) => {
-                return monthStartIndexes.includes(context.tick.value) ? 5 : 1;
-              },
+              // lineWidth: (context) => {
+              //   return monthStartIndexes.includes(context.tick.value) ? 5 : 1;
+              // },
               borderDash: (context) => {
                 return context.tick.value === 0 ? [2] : [];
               },
