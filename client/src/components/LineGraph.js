@@ -212,19 +212,19 @@ const LineGraph = () => {
                 if(index < 124 && index > 93 && (index - 93)%10 === 0 && (index-93) < 30){
                   return index - 93
                 }
-                if(index === 93){
+                if(index === 124){
                   return 'August'
                 }
                 if(index < 155 && index > 124 && (index - 124)%10 === 0 && (index-124) < 30){
                   return index - 124
                 }
-                if(index === 124){
+                if(index === 155){
                   return 'September'
                 }
                 if(index < 185 && index > 155 && (index - 155)%10 === 0 && (index-155) < 30){
                   return index - 155
                 }
-                if(index === 155){
+                if(index === 185){
                   return 'October'
                 }
               
