@@ -1,3 +1,3 @@
-export const monthStartIndexes = [2,32,63,93,124,155,185]
+export const monthStartIndexes = [2,32,63,93,121,151,181]
 
 
