@@ -1,7 +1,7 @@
 const cheerio = require('cheerio')
 const fetch = require('node-fetch')
 
-const mlbURL = 'https://www.baseball-reference.com/leagues/majors/2022-schedule.shtml'
+const mlbURL = 'https://www.baseball-reference.com/leagues/majors/2023-schedule.shtml'
 
 const numerateMonth = (month) => {
     switch (month) {

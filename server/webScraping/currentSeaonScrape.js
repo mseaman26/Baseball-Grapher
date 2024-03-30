@@ -2,7 +2,7 @@ const cheerio = require('cheerio')
 const fetch = require('node-fetch')
 
 
-const mlbURL = 'https://www.baseball-reference.com/leagues/majors/2023-schedule.shtml'
+const mlbURL = 'https://www.baseball-reference.com/leagues/majors/2024-schedule.shtml'
 
 const numerateMonth = (month) => {
     //offset is 28 for 2023
@@ -49,7 +49,7 @@ const scrapeCurrentSeason = async (teamName) => {
             }
             //add specified teams' games to todaysGames array
             dailyGames.each(function(j, gameElement) {
-                if($(gameElement).text().includes(teamName)){
+                if($(gameElement).text().includes(teamName) && (!$(gameElement).text().includes('Spring'))){
                     
                     todaysTeamGames.push($(gameElement).text())
                 }

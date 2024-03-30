@@ -188,7 +188,7 @@ const LineGraph = () => {
                 // Only show labels for every 5th tick and account for change of month
                 console.log(dataSets.length)
     
-                if(index === 2){
+                if(index === 10){
                   return 'April'
                 }
                 if(index < 32 && index > 2 && (index - 2)%10 === 0 && (index-2) < 30){
