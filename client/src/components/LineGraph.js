@@ -108,7 +108,7 @@ const LineGraph = () => {
       }
 
       //setBorderWidth(500000 /window.innerWidth/ labels.length);
-      setBorderWidth(5);
+      setBorderWidth(20);
       console.log(borderWidth)
       let dataArr = [];
       let dataMinMax = [];
@@ -152,7 +152,7 @@ const LineGraph = () => {
   useEffect(() => {
     
     setGraphHeight((graphWidth / (labels.length - 1)) * (dataMax - dataMin));
-    let aspecheight = dataMax - dataMin +2.5;
+    let aspecheight = dataMax - dataMin +1;
     let aspecWidth = (labels.length -3)/2;
     
     console.log(dataMax, dataMin, aspecheight, aspecWidth)
@@ -187,15 +187,23 @@ const LineGraph = () => {
               callback: function(value, index, values) {
                 // Only show labels for every 5th tick and account for change of month
                 console.log(dataSets.length)
-    
-                if(index === 10){
-                  return 'April'
-                }
+                // if(index === 1){
+                //   return 'March'
+                // }
+                // if(index === 10){
+                //   return 'April'
+                // }
                 if(index < 32 && index > 2 && (index - 2)%10 === 0 && (index-2) < 30){
                   return index-2
                 }
+                if(index === 0){
+                    return 'March'
+                  }
                 if(index === 32){
                   return 'May'
+                }
+                if(index < 32 && index > 0 ){
+                  return index + 21
                 }
                 if(index < 63 && index > 32 && (index - 32)%10 === 0 && (index-32) < 30){
                   return index - 32
@@ -227,7 +235,10 @@ const LineGraph = () => {
                 if(index === 181){
                   return 'October'
                 }
-              
+
+                if (labels[index]) {
+                  return labels[index] * 2;
+                }
               }
             },
             grid: {
@@ -258,7 +269,7 @@ const LineGraph = () => {
               fontSize: 24,
               callback: function(value, index, values) {
                 // Only show labels for every 5th tick
-                if (value % 5 === 0) {
+                if (value % 1 === 0) {
                     return value;
                 }
                 return '';
