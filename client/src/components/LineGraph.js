@@ -345,6 +345,7 @@ const LineGraph = () => {
       setBorderWidth(Math.floor(window.innerWidth/divider))
     }
     window.addEventListener('resize', handlResize)
+    window.addEventListener('orientationchange', handlResize)
     return () => {
       window.removeEventListener('resize', handlResize)
     }
