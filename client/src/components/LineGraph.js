@@ -17,7 +17,7 @@ const LineGraph = () => {
   const containerRef = useRef(null);
   const [labels, setLabels] = useState([]);
   const [dataSets, setDataSets] = useState([]);
-  const [borderWidth, setBorderWidth] = useState(5);
+  const [borderWidth, setBorderWidth] = useState(null);
   const [dataMin, setDatamin] = useState(0);
   const [dataMax, setDataMax] = useState(0);
   const [numberOfLabels, setNumberOfLabels] = useState(0);
@@ -28,7 +28,7 @@ const LineGraph = () => {
   const reRender = () => {
 
   }
-
+  const divider = 50 //raise this to lower wine width of the graphs
 
   const handleNLWEST = () => {
     setTeamNames([
@@ -108,7 +108,7 @@ const LineGraph = () => {
       }
 
       //setBorderWidth(500000 /window.innerWidth/ labels.length);
-      setBorderWidth(20);
+      // setBorderWidth(20);
       console.log(borderWidth)
       let dataArr = [];
       let dataMinMax = [];
@@ -123,7 +123,7 @@ const LineGraph = () => {
           data: seasons[i].standings,
           fill: false,
           borderColor: chooseColor(seasons[i].teamName),
-          borderWidth: borderWidth,
+          borderWidth: borderWidth || Math.floor(window.innerWidth / divider),
           elements: {
             line: {
               borderWidth: borderWidth,
@@ -190,11 +190,17 @@ const LineGraph = () => {
                 // if(index === 1){
                 //   return 'March'
                 // }
-                // if(index === 10){
-                //   return 'April'
-                // }
-                if(index < 32 && index > 2 && (index - 2)%10 === 0 && (index-2) < 30){
-                  return index-2
+                if(index < 12 && index > 0 ){
+                  return index + 20
+                }
+                if(index === 12){
+                  return 'April'
+                }
+                if(index < 42 && index > 12 
+                  // && (index - 2)%10 === 0 && (index-2) < 30)
+                )
+                  {
+                  return index-11
                 }
                 if(index === 0){
                     return 'March'
@@ -202,9 +208,7 @@ const LineGraph = () => {
                 if(index === 32){
                   return 'May'
                 }
-                if(index < 32 && index > 0 ){
-                  return index + 21
-                }
+                
                 if(index < 63 && index > 32 && (index - 32)%10 === 0 && (index-32) < 30){
                   return index - 32
                 }
@@ -334,6 +338,17 @@ const LineGraph = () => {
   }, [
     labels, borderWidth
   ]);
+
+  useEffect(() => {
+    const handlResize = () => {
+      console.log('window width: ', window.innerWidth)
+      setBorderWidth(Math.floor(window.innerWidth/divider))
+    }
+    window.addEventListener('resize', handlResize)
+    return () => {
+      window.removeEventListener('resize', handlResize)
+    }
+  })
 
   return (
     <div className="container col-3-lg" ref={containerRef}>
