@@ -147,7 +147,7 @@ const LineGraph = () => {
       setDataSets(dataArr);
       
     }
-  }, [seasons, dataMax, dataMin, graphHeight]);
+  }, [seasons, dataMax, dataMin, graphHeight, borderWidth]);
 
   useEffect(() => {
     
