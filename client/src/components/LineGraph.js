@@ -190,15 +190,15 @@ const LineGraph = () => {
                 // if(index === 1){
                 //   return 'March'
                 // }
-                if(index < 12 && index > 0 ){
+                if(index < 11 && index > 0 ){
                   return index + 20
                 }
-                if(index === 12){
+                if(index === 11){
                   return 'April'
                 }
-                if(index < 42 && index > 12 
+                if(index > 11 && index < 31) 
                   // && (index - 2)%10 === 0 && (index-2) < 30)
-                )
+
                   {
                   return index-11
                 }
@@ -273,7 +273,7 @@ const LineGraph = () => {
               fontSize: 24,
               callback: function(value, index, values) {
                 // Only show labels for every 5th tick
-                if (value % 1 === 0) {
+                if (value % 5 === 0) {
                     return value;
                 }
                 return '';
