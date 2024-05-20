@@ -335,6 +335,7 @@ const LineGraph = () => {
   }, [labels, borderWidth, dataSets, dataMax, dataMin, graphWidth, graphHeight]);
 
   useEffect(() => {
+    setBorderWidth(Math.floor(window.innerWidth/divider))
     const handlResize = () => {
       console.log('window width: ', window.innerWidth)
       console.log('border width: ', Math.floor(window.innerWidth/divider))
