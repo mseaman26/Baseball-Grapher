@@ -211,8 +211,30 @@ const LineGraph = () => {
                 if(index > 41 && index < 72 && (index - 41)%5 === 0 && (index-41) < 30){
                   return index - 41
                 }else{
-                  return ''
+     
                 }
+                if(index === 72){
+                  return 'June'
+                }
+                if(index > 72 && index < 102 && (index - 72)%5 === 0 && (index-72) < 30){
+                  return index - 72
+                }
+                if(index === 102){
+                  return 'July'
+                }
+                if(index > 102 && index < 133 && (index - 102)%5 === 0 && (index-102) < 30){
+                  return index - 102
+                }
+                if(index === 133){
+                  return 'August'
+                }
+                if(index > 133 && index < 163 && (index - 133)%5 === 0 && (index-133) < 30){
+                  return index - 133
+                }
+                if(index === 163){
+                  return 'September'
+                }
+
                
 
                 if (labels[index]) {
