@@ -193,47 +193,77 @@ const LineGraph = () => {
                 if(index === 0){
                   return 'March'
                 }
-                if(index < 11 && index > 0 && index%5 === 0 && index < 10){
-                  return index + 20
+                if(index < 11 && index > 0){
+                  if(index%5 === 0 && index < 10){
+                    return index + 20
+                  }else{
+                    return ''
+                  }
+                 
                 }
                 if(index === 11){
                   return 'April'
                 }
-                if(index > 11 && index < 41 && (index - 11)%5 === 0 && (index-11) < 30){
-
-                  return index-11
+                if(index < 41 && index > 11){
+                  if((index-11)%5 === 0 && index < 40){
+                    return index - 11
+                  }else{
+                    return ''
+                  }
                 }
                 
                 if(index === 41){
                   return 'May'
                 }
                 
-                if(index > 41 && index < 72 && (index - 41)%5 === 0 && (index-41) < 30){
-                  return index - 41
-                }else{
-     
+                if(index < 72 && index > 41){
+                  if((index - 41)%5 === 0 && index < 70){
+                    return index - 41
+                  }else{
+                    return ''
+                  }
                 }
                 if(index === 72){
                   return 'June'
                 }
-                if(index > 72 && index < 102 && (index - 72)%5 === 0 && (index-72) < 30){
-                  return index - 72
+                if(index < 102 && index > 72){
+                  if((index - 72)%5 === 0 && index < 100){
+                    return index - 72
+                  }else{
+                    return ''
+                  }
                 }
                 if(index === 102){
                   return 'July'
                 }
-                if(index > 102 && index < 133 && (index - 102)%5 === 0 && (index-102) < 30){
-                  return index - 102
+                if(index < 133 && index > 102){
+                  if((index - 102)%5 === 0 && index < 130){
+                    return index - 102
+                  }else{
+                    return ''
+                  }
                 }
                 if(index === 133){
                   return 'August'
                 }
-                if(index > 133 && index < 163 && (index - 133)%5 === 0 && (index-133) < 30){
-                  return index - 133
+                if(index < 163 && index > 133){
+                  if((index - 133)%5 === 0 && index < 160){
+                    return index - 133
+                  }else{
+                    return ''
+                  }
                 }
                 if(index === 163){
                   return 'September'
                 }
+                if(index < 194 && index > 163){
+                  if((index - 163)%5 === 0 && index < 190){
+                    return index - 163
+                  }else{
+                    return ''
+                  }
+                }
+                
 
                
 
