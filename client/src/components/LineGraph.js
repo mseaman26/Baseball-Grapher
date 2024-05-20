@@ -28,7 +28,7 @@ const LineGraph = () => {
   const reRender = () => {
 
   }
-  const divider = 50 //raise this to lower wine width of the graphs
+  const divider = 180 //raise this to lower wine width of the graphs
 
   const handleNLWEST = () => {
     setTeamNames([
@@ -123,7 +123,7 @@ const LineGraph = () => {
           data: seasons[i].standings,
           fill: false,
           borderColor: chooseColor(seasons[i].teamName),
-          borderWidth: borderWidth || Math.floor(window.innerWidth / divider),
+          borderWidth: borderWidth,
           elements: {
             line: {
               borderWidth: borderWidth,
@@ -190,55 +190,30 @@ const LineGraph = () => {
                 // if(index === 1){
                 //   return 'March'
                 // }
-                if(index < 11 && index > 0 ){
+                if(index === 0){
+                  return 'March'
+                }
+                if(index < 11 && index > 0 && index%5 === 0 && index < 10){
                   return index + 20
                 }
                 if(index === 11){
                   return 'April'
                 }
-                if(index > 11 && index < 31) 
-                  // && (index - 2)%10 === 0 && (index-2) < 30)
+                if(index > 11 && index < 41 && (index - 11)%5 === 0 && (index-11) < 30){
 
-                  {
                   return index-11
                 }
-                if(index === 0){
-                    return 'March'
-                  }
-                if(index === 32){
+                
+                if(index === 41){
                   return 'May'
                 }
                 
-                if(index < 63 && index > 32 && (index - 32)%10 === 0 && (index-32) < 30){
-                  return index - 32
+                if(index > 41 && index < 72 && (index - 41)%5 === 0 && (index-41) < 30){
+                  return index - 41
+                }else{
+                  return ''
                 }
-                if(index === 63){
-                  return 'June'
-                }
-                if(index < 93 && index > 63 && (index - 63)%10 === 0 && (index-63) < 30){
-                  return index - 63
-                }
-                if(index === 93){
-                  return 'July'
-                }
-                if(index < 120 && index > 93 && (index - 93)%10 === 0 && (index-93) < 30){
-                  return index - 93
-                }
-                if(index === 121){
-                  return 'August'
-                }
-                if(index < 151 && index > 121 && (index - 121)%10 === 0 && (index-121) < 30){
-                  return index - 121
-                }
-                if(index === 151){
-                  return 'September'
-                }
-                if(index < 181 && index > 151 && (index - 151)%10 === 0 && (index-151) < 30){
-                  return index - 151
-                }
-                if(index === 181){
-                  return 'October'
-                }
+               
 
                 if (labels[index]) {
                   return labels[index] * 2;
@@ -335,13 +310,12 @@ const LineGraph = () => {
     return () => {
       myLineChartRef.current.destroy();
     };
-  }, [
-    labels, borderWidth
-  ]);
+  }, [labels, borderWidth, dataSets, dataMax, dataMin, graphWidth, graphHeight]);
 
   useEffect(() => {
     const handlResize = () => {
       console.log('window width: ', window.innerWidth)
+      console.log('border width: ', Math.floor(window.innerWidth/divider))
       setBorderWidth(Math.floor(window.innerWidth/divider))
     }
     window.addEventListener('resize', handlResize)
@@ -349,7 +323,7 @@ const LineGraph = () => {
     return () => {
       window.removeEventListener('resize', handlResize)
     }
-  })
+  }, [])
 
   return (
     <div className="container col-3-lg" ref={containerRef}>
