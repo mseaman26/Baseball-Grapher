@@ -420,11 +420,11 @@ const LineGraph = () => {
         {loading ? (
           <></>
         ) : (
-          <div className="row" style={{'margin': '10px'}}>
+          <div className="row d-flex justify-content-center" style={{'margin': '10px'}}>
             {seasons.map((season) => (
               <div className="col-2" style={{'margin': '5px'}}>
               <div style={{'background-color': chooseColor(season.teamName), 'height': borderWidth}}></div>
-              <div className="col-2" style={{'font-size': 12}}>{season.teamName}</div>
+              <div className="" style={{'font-size': 16, textAlign: 'center'}}>{season.teamName}</div>
               </div>
             ))}
           </div>
