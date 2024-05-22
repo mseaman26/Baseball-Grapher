@@ -392,26 +392,26 @@ const LineGraph = () => {
   }, [graphWidth])
 
   return (
-    <div className="d-flex flex-column align-items-center" ref={containerRef}>
+    <div className="d-flex flex-column align-items-center p-1" ref={containerRef}>
       <h1>Select MLB division</h1>
-      <h2 style={{textAlign: 'center'}}>{`(And turn phone sideways for better graph viewing experince)`}</h2>
+      <h2 style={{textAlign: 'center', color: 'green'}}>{`*Turn phone sideways for better graph viewing experince`}</h2>
       <div className="row">
-        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleNLWEST}>
+        <div className="col-4  p-1"><button className="btn btn-primary " onClick={handleNLWEST} style={{height: '100%'}}>
           NL WEST
         </button></div>
-        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleNLCENTRAL}>
+        <div className="col-4  p-1"><button className="btn btn-primary" onClick={handleNLCENTRAL} style={{height: '100%'}}>
           NL CENTRAL
         </button></div>
-        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleNLEAST}>
+        <div className="col-4  p-1"><button className="btn btn-primary" onClick={handleNLEAST} style={{height: '100%'}}>
           NL EAST
         </button></div>
-        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleALWEST}>
+        <div className="col-4  p-1"><button className="btn btn-primary" onClick={handleALWEST} style={{height: '100%'}}>
           AL WEST
         </button></div>
-        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleALCENTRAL}>
+        <div className="col-4  p-1"><button className="btn btn-primary" onClick={handleALCENTRAL} style={{height: '100%'}}>
           AL CENTRAL
         </button></div>
-        <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleALEAST}>
+        <div className="col-4  p-1"><button className="btn btn-primary" onClick={handleALEAST} style={{height: '100%'}}>
           AL EAST
         </button></div>
       </div>
