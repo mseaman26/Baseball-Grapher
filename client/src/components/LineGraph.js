@@ -147,18 +147,25 @@ const LineGraph = () => {
       setDataSets(dataArr);
       
     }
-  }, [seasons, dataMax, dataMin, graphHeight, borderWidth]);
+  }, [seasons, graphHeight, borderWidth]);
 
+
+  useEffect(() => {
+    console.log('dataMin: ', dataMin)
+    console.log('dataMax: ', dataMax)
+    console.log('lables.length: ', labels.length)
+  }, [dataMin, dataMax, labels.length])
   useEffect(() => {
     
     setGraphHeight((graphWidth / (labels.length - 1)) * (dataMax - dataMin));
-    let aspecheight = dataMax - dataMin +1;
-    let aspecWidth = (labels.length -3)/2;
+    let aspecheight = (dataMax - dataMin)  ;
+    let aspecWidth = (labels.length) / 2;
     
-    console.log(dataMax, dataMin, aspecheight, aspecWidth)
+    console.log('max, min, aspheight, aspwidth',dataMax, dataMin, aspecheight, aspecWidth)
 
     const ctx = chartRef.current.getContext("2d");
-    let aspecRatio = aspecWidth / aspecheight;
+    let aspecRatio = (window.innerWidth - 100)/(aspecheight * (window.innerWidth - 100)) * 50
+    console.log('aspect ratio: ', aspecRatio)
     myLineChartRef.current = new Chart(ctx, {
       type: "line",
       data: {
@@ -362,14 +369,16 @@ const LineGraph = () => {
     return () => {
       myLineChartRef.current.destroy();
     };
-  }, [labels, borderWidth, dataSets, dataMax, dataMin, graphWidth, graphHeight]);
+  }, [labels, borderWidth, dataSets, dataMax, dataMin, graphWidth]);
 
   useEffect(() => {
     setBorderWidth(Math.floor(window.innerWidth/divider))
+    setGraphWidth(window.innerWidth)
     const handlResize = () => {
       console.log('window width: ', window.innerWidth)
       console.log('border width: ', Math.floor(window.innerWidth/divider))
       setBorderWidth(Math.floor(window.innerWidth/divider))
+      setGraphWidth(window.innerWidth)
     }
     window.addEventListener('resize', handlResize)
     window.addEventListener('orientationchange', handlResize)
@@ -378,9 +387,14 @@ const LineGraph = () => {
     }
   }, [])
 
+  useEffect(() => {
+    console.log('graphWidth: ',graphWidth)
+  }, [graphWidth])
+
   return (
-    <div className="container col-3-lg" ref={containerRef}>
+    <div className="d-flex flex-column align-items-center" ref={containerRef}>
       <h1>Select MLB division</h1>
+      <h2 style={{textAlign: 'center'}}>{`(And turn phone sideways for better graph viewing experince)`}</h2>
       <div className="row">
         <div className="col-4 col-lg-2 p-1"><button className="btn btn-primary" onClick={handleNLWEST}>
           NL WEST
