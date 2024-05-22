@@ -392,7 +392,7 @@ const LineGraph = () => {
   }, [graphWidth])
 
   return (
-    <div className="d-flex flex-column align-items-center p-1" ref={containerRef}>
+    <div className="d-flex flex-column align-items-center p-3" ref={containerRef}>
       <h1>Select MLB division</h1>
       <h2 style={{textAlign: 'center', color: 'green'}}>{`*Turn phone sideways for better graph viewing experince`}</h2>
       <div className="row">
@@ -420,11 +420,11 @@ const LineGraph = () => {
         {loading ? (
           <></>
         ) : (
-          <div className="row d-flex justify-content-center" style={{'margin': '10px'}}>
+          <div className="row d-flex justify-content-between mt-2" >
             {seasons.map((season) => (
-              <div className="col-2" style={{'margin': '5px'}}>
-              <div style={{'background-color': chooseColor(season.teamName), 'height': borderWidth}}></div>
-              <div className="" style={{'font-size': 16, textAlign: 'center'}}>{season.teamName}</div>
+              <div className="col-2" style={{'margin': '0px', padding: '0px'}}>
+              <div style={{'background-color': chooseColor(season.teamName), 'height': borderWidth * 2, width: '100%'}}></div>
+              <div className="" style={{'font-size': '2vw', fontWeight: 700, }}>{season.teamName}</div>
               </div>
             ))}
           </div>
