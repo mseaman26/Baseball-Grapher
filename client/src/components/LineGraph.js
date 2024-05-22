@@ -415,29 +415,32 @@ const LineGraph = () => {
           AL EAST
         </button></div>
       </div>
-      {loading ? (
-        <></>
-      ) : (
-        <div className="row" style={{'margin': '10px'}}>
-          {seasons.map((season) => (
-            <div className="col-2" style={{'margin': '5px'}}>
-            <div style={{'background-color': chooseColor(season.teamName), 'height': borderWidth}}></div>
-            <div className="col-2" style={{'font-size': 12}}>{season.teamName}</div>
-            </div>
-          ))}
-        </div>
-      )}
-      {loading ? (
-        <>loading</>
-      ) : (
-        <></>
-      )}
-      
-      <canvas
-          ref={chartRef}
-          className="chart_canvas"
-          style={{ width: "100%", visibility: graphDisplay }}
-        />
+      <div style={{position: 'relative', height: 'fill-available', width: '100%'}}>
+      <div style={{backgroundColor: 'transparent', zIndex: 5, position: 'absolute', height: '100%', width: '100%'}}></div>
+        {loading ? (
+          <></>
+        ) : (
+          <div className="row" style={{'margin': '10px'}}>
+            {seasons.map((season) => (
+              <div className="col-2" style={{'margin': '5px'}}>
+              <div style={{'background-color': chooseColor(season.teamName), 'height': borderWidth}}></div>
+              <div className="col-2" style={{'font-size': 12}}>{season.teamName}</div>
+              </div>
+            ))}
+          </div>
+        )}
+        {loading ? (
+          <>loading</>
+        ) : (
+          <></>
+        )}
+        
+        <canvas
+            ref={chartRef}
+            className="chart_canvas"
+            style={{ width: "100%", visibility: graphDisplay, overflow: 'a' }}
+          />
+      </div>
     </div>
   );
 };
