@@ -441,7 +441,7 @@ const LineGraph = () => {
             style={{ width: "100%", visibility: graphDisplay, overflow: 'a' }}
           />
         :
-        <h2 style={{textAlign: 'center', color: 'green'}}>{`*Turn phone sideways or widen screen for better graph viewing experince`}</h2>
+        <h2 style={{textAlign: 'center', color: 'green'}}>{`*Turn phone sideways or widen screen to view graphs`}</h2>
         }
       </div>
     </div>
