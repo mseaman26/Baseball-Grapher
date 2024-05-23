@@ -163,7 +163,7 @@ const LineGraph = () => {
     
     console.log('max, min, aspheight, aspwidth',dataMax, dataMin, aspecheight, aspecWidth)
 
-    const ctx = chartRef.current.getContext("2d");
+    const ctx = chartRef?.current?.getContext("2d");
     let aspecRatio = (window.innerWidth - 100)/(aspecheight * (window.innerWidth - 100)) * 50
     console.log('aspect ratio: ', aspecRatio)
     myLineChartRef.current = new Chart(ctx, {
@@ -394,7 +394,7 @@ const LineGraph = () => {
   return (
     <div className="d-flex flex-column align-items-center p-3" ref={containerRef}>
       <h1>Select MLB division</h1>
-      <h2 style={{textAlign: 'center', color: 'green'}}>{`*Turn phone sideways for better graph viewing experince`}</h2>
+      
       <div className="row">
         <div className="col-4  p-1"><button className="btn btn-primary " onClick={handleNLWEST} style={{height: '100%'}}>
           NL WEST
@@ -435,11 +435,14 @@ const LineGraph = () => {
           <></>
         )}
         
-        <canvas
+        {window?.innerWidth > 500 ? <canvas
             ref={chartRef}
             className="chart_canvas"
             style={{ width: "100%", visibility: graphDisplay, overflow: 'a' }}
           />
+        :
+        <h2 style={{textAlign: 'center', color: 'green'}}>{`*Turn phone sideways or widen screen for better graph viewing experince`}</h2>
+        }
       </div>
     </div>
   );
