@@ -164,7 +164,8 @@ const LineGraph = () => {
     console.log('max, min, aspheight, aspwidth',dataMax, dataMin, aspecheight, aspecWidth)
 
     const ctx = chartRef?.current?.getContext("2d");
-    let aspecRatio = (window.innerWidth - 100)/(aspecheight * (window.innerWidth - 100)) * 50
+    //aspect ratio can be adjusted here by changing the final multiplier
+    let aspecRatio = (window.innerWidth - 100)/(aspecheight * (window.innerWidth - 100)) * 60
     console.log('aspect ratio: ', aspecRatio)
     myLineChartRef.current = new Chart(ctx, {
       type: "line",
@@ -179,7 +180,7 @@ const LineGraph = () => {
         // },
         maintainAspectRatio: true, // Disable the default aspect ratio
         responsive: true,
-        aspectRatio: aspecRatio, // Set a fixed aspect ratio of 1:1
+        aspectRatio: aspecRatio, 
         scales: {
           x: {
             title: {
