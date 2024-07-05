@@ -28,7 +28,7 @@ const LineGraph = () => {
   const reRender = () => {
 
   }
-  const divider = 180 //raise this to lower wine width of the graphs
+  const divider = 180 //raise this to lower line width of the graphs
 
   const handleNLWEST = () => {
     setTeamNames([
@@ -165,7 +165,7 @@ const LineGraph = () => {
 
     const ctx = chartRef?.current?.getContext("2d");
     //aspect ratio can be adjusted here by changing the final multiplier
-    let aspecRatio = (window.innerWidth - 100)/(aspecheight * (window.innerWidth - 100)) * 60
+    let aspecRatio = (window.innerWidth - 100)/(aspecheight * (window.innerWidth - 100)) * 90
     console.log('aspect ratio: ', aspecRatio)
     myLineChartRef.current = new Chart(ctx, {
       type: "line",
