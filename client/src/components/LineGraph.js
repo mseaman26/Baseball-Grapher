@@ -93,7 +93,7 @@ const LineGraph = () => {
   });
 
   const seasons = data?.currentSeasons || [];
-  console.log(data)
+  console.log('data: ',data)
 
   useEffect(() => {
     
@@ -165,7 +165,7 @@ const LineGraph = () => {
 
     const ctx = chartRef?.current?.getContext("2d");
     //aspect ratio can be adjusted here by changing the final multiplier
-    let aspecRatio = (window.innerWidth - 100)/(aspecheight * (window.innerWidth - 100)) * 90
+    let aspecRatio = (window.innerWidth - 100)/(aspecheight * (window.innerWidth - 100)) * 100
     console.log('aspect ratio: ', aspecRatio)
     myLineChartRef.current = new Chart(ctx, {
       type: "line",

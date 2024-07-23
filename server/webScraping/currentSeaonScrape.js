@@ -56,6 +56,7 @@ const scrapeCurrentSeason = async (teamName) => {
             });
             //handle days off
             if(todaysTeamGames.length === 0){
+                
                 currentDay += .5
                 labels.push(currentDay)
                 standings.push(currentStanding)
@@ -63,6 +64,7 @@ const scrapeCurrentSeason = async (teamName) => {
                 labels.push(currentDay)
                 standings.push(currentStanding)
             }
+            
             //if there's more than one game, make daysPerGame .5, otherwise make it 1
             if(todaysTeamGames.length > 1){
                 doubleHeader = true
@@ -124,8 +126,22 @@ const scrapeCurrentSeason = async (teamName) => {
 
         
             } 
+            //handling of all star break, i had to find the day (116) manually and add 8 ticks to it (4 days off)
+            if(currentDay === 116){
+                for(let i = 0; i < 8; i++){
+                    currentDay += .5
+                    labels.push(currentDay)
+                    standings.push(currentStanding)
+                    
+                }
+            }
         });
-
+        console.log({
+            teamName: teamName,
+            labels: labels,
+            standings, standings
+        })
+        console.log('currentDay:', currentDay)
     return {
         teamName: teamName,
         labels: labels,

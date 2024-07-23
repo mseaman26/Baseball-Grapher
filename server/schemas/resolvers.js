@@ -24,7 +24,7 @@ const resolvers = {
         },
         currentSeasons: async (parent, args) => {
             console.log('Importing scrapeCurrentSeason:', scrapeCurrentSeason)
-
+            console.log('args.teamNames:', args.teamNames)
             try{
                 let seasons = []
                 for(let i = 0; i < args.teamNames.length; i++){
